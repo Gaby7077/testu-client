@@ -4,6 +4,7 @@ import { NavLink } from "react-router-dom";
 import HeaderLinks from "../Header/HeaderLinks.jsx";
 
 import imagine from "assets/img/sidebar-3.jpg";
+//agregar y cambiar logo//
 import logo from "assets/img/reactlogo.png";
 
 import dashboardRoutes from "routes/dashboard.jsx";
@@ -47,10 +48,10 @@ class Sidebar extends Component {
             </div>
           </a>
           <a
-            href="https://www.creative-tim.com"
+           // href="https://www.creative-tim.com"
             className="simple-text logo-normal"
           >
-            Creative Tim
+            TestU
           </a>
         </div>
         <div className="sidebar-wrapper">

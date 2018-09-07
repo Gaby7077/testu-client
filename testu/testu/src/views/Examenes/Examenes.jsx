@@ -3,7 +3,7 @@ import { Grid, Row, Col, Alert } from "react-bootstrap";
 
 import Button from "components/CustomButton/CustomButton.jsx";
 
-class Notifications extends Component {
+class Examenes extends Component {
   render() {
     return (
       <div className="content">
@@ -182,4 +182,4 @@ class Notifications extends Component {
   }
 }
 
-export default Notifications;
+export default Examenes;

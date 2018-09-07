@@ -52,7 +52,7 @@ class Dashboard extends Component {
     });
   }
   componentDidMount() {
-    this.setState({ _notificationSystem: this.refs.notificationSystem });
+   // this.setState({ _notificationSystem: this.refs.notificationSystem });//
     var _notificationSystem = this.refs.notificationSystem;
     var color = Math.floor(Math.random() * 4 + 1);
     var level;
@@ -72,18 +72,7 @@ class Dashboard extends Component {
       default:
         break;
     }
-    _notificationSystem.addNotification({
-      title: <span data-notify="icon" className="pe-7s-gift" />,
-      message: (
-        <div>
-          Welcome to <b>Light Bootstrap Dashboard</b> - a beautiful freebie for
-          every web developer.
-        </div>
-      ),
-      level: level,
-      position: "tr",
-      autoDismiss: 15
-    });
+    
   }
   componentDidUpdate(e) {
     if (
