@@ -1,5 +1,6 @@
 import React from "react";
 import ReactDOM from "react-dom";
+import Login from "views/Login"
 
 import { HashRouter, Route, Switch } from "react-router-dom";
 
@@ -14,6 +15,7 @@ import "./assets/css/pe-icon-7-stroke.css";
 ReactDOM.render(
   <HashRouter>
     <Switch>
+      <Route exact path="/" render={()=><Login/>}/>
       {indexRoutes.map((prop, key) => {
         return <Route to={prop.path} component={prop.component} key={key} />;
       })}
