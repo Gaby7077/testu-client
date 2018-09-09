@@ -5,7 +5,8 @@ import {
   Col,
   FormGroup,
   ControlLabel,
-  FormControl
+  FormControl,
+  ProgressBar
 } from "react-bootstrap";
 
 import { Card } from "components/Card/Card.jsx";
@@ -27,6 +28,8 @@ class UserProfile extends Component {
     empresa: "",
     Picture: "",
     image: null,
+    message:"",
+    upLoadValue:0
   }
 
 
@@ -73,21 +76,30 @@ class UserProfile extends Component {
   handleUpload = e => {
     e.preventDefault();
     if (this.state.image) {
-      const uploadTask = storage.ref(`images/${this.state.image.name}`).put(this.state.image);
+      let filename=`${this.state.image.name}${Date.now()}`
+      const uploadTask = storage.ref(`images/${filename}`).put(this.state.image);
       uploadTask.on("state_changed",
         (snapshot) => {
           //progress function ...
+          let percentage=(snapshot.bytesTransferred/snapshot.totalBytes)*100
+          this.setState({
+            upLoadValue:percentage
+          })
         },
         (error) => {
           //error function ...
           console.log(error)
+          this.setState({
+            message:`Ha ocurrido un error: ${error.message}`
+          })
         },
         () => {
           //complete function ...
-          storage.ref("images").child(this.state.image.name).getDownloadURL().then(url => {
+          storage.ref("images").child(filename).getDownloadURL().then(url => {
             //console.log(url)
             this.setState({
-              Picture: url
+              Picture: url,
+              message:`Archivo cargado`
             })
             UserAPI.putUpdate({
               email: this.state.email,
@@ -176,6 +188,7 @@ class UserProfile extends Component {
                         }
                       ]}
                     />
+                    <ProgressBar active now={this.state.upLoadValue} />
                     <FormInputs
                       ncols={["col-md-6"]}
                       proprieties={[
@@ -187,6 +200,9 @@ class UserProfile extends Component {
                         }
                       ]}
                     />
+                    <div>
+                      {this.state.message}
+                    </div>
 
 
 
