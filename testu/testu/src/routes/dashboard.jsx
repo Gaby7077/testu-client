@@ -3,7 +3,6 @@ import UserProfile from "views/UserProfile/UserProfile";
 import TableList from "views/TableList/TableList";
 import Calificaciones from "views/Calificaciones/Calificaciones";
 import Examenes from "views/Examenes/Examenes";
-import Login from "views/Login"
 
 
 const dashboardRoutes = [
@@ -31,12 +30,7 @@ const dashboardRoutes = [
     icon: "pe-7s-note2",
     component: Examenes
   },
-  {
-    path: "/login",
-    name: "Login",
-    icon: "pe-7s-note2",
-    component: Login
-  },
+ ,
   { redirect: true, path: "/", to: "/login", name: "Cursos" }
 ];
 
