@@ -26,7 +26,7 @@ class UserProfile extends Component {
     LastName: "",
     empresa: "",
     Picture: "",
-    image: "",
+    image: null,
   }
 
 
@@ -36,7 +36,7 @@ class UserProfile extends Component {
         if (response.data === null) {
           localStorage.removeItem("token")
           localStorage.removeItem("role")
-         /* window.location.replace("/");*/
+          /* window.location.replace("/");*/
         }
         else {
           this.setState({
@@ -47,7 +47,8 @@ class UserProfile extends Component {
             Picture: response.data.authData.user.Picture,
           })
           //console.log(response.data.authData.user.email)
-          console.log(response)
+          //*Es lo que viene en el token
+          //console.log(response)
 
         }
       })
@@ -62,27 +63,59 @@ class UserProfile extends Component {
     }
   };
 
+  handleInputChange = event => {
+    const { name, value } = event.target;
+    this.setState({
+      [name]: value
+    });
+  };
+
   handleUpload = e => {
     e.preventDefault();
-    const uploadTask = storage.ref(`images/${this.state.image.name}`).put(this.state.image);
-    uploadTask.on("state_changed",
-      (snapshot) => {
-        //progress function ...
-      },
-      (error) => {
-        //error function ...
-        console.log(error)
-      },
-      () => {
-        //complete function ...
-        storage.ref("images").child(this.state.image.name).getDownloadURL().then(url=>{
-          console.log(url)
-          this.setState({
-            Picture:url
+    if (this.state.image) {
+      const uploadTask = storage.ref(`images/${this.state.image.name}`).put(this.state.image);
+      uploadTask.on("state_changed",
+        (snapshot) => {
+          //progress function ...
+        },
+        (error) => {
+          //error function ...
+          console.log(error)
+        },
+        () => {
+          //complete function ...
+          storage.ref("images").child(this.state.image.name).getDownloadURL().then(url => {
+            //console.log(url)
+            this.setState({
+              Picture: url
+            })
+            UserAPI.putUpdate({
+              email: this.state.email,
+              FirstName: this.state.FirstName,
+              LastName: this.state.LastName,
+              Picture: this.state.Picture
+
+            })
+              .then(response => {
+                console.log(response)
+              })
+
           })
+        }
+      )
+    }
+    else{
+      UserAPI.putUpdate({
+        email: this.state.email,
+        FirstName: this.state.FirstName,
+        LastName: this.state.LastName,
+        Picture: this.state.Picture
+
+      })
+        .then(response => {
+          console.log(response)
         })
-      }
-    )
+    }
   }
 
 
@@ -117,6 +150,7 @@ class UserProfile extends Component {
                           type: "email",
                           bsClass: "form-control",
                           value: this.state.email,
+                          disabled: true
 
                         }
                       ]}
@@ -128,15 +162,17 @@ class UserProfile extends Component {
                           label: "First name",
                           type: "text",
                           bsClass: "form-control",
-                          placeholder: "First name",
-                          value: this.state.FirstName
+                          name: "FirstName",
+                          placeholder: this.state.FirstName,
+                          onChange: this.handleInputChange
                         },
                         {
                           label: "Last name",
                           type: "text",
                           bsClass: "form-control",
-                          placeholder: "Last name",
-                          value: this.state.LastName
+                          name: "LastName",
+                          placeholder: this.state.LastName,
+                          onChange: this.handleInputChange
                         }
                       ]}
                     />
@@ -167,7 +203,7 @@ class UserProfile extends Component {
               <UserCard
                 bgImage="https://ununsplash.imgix.net/photo-1431578500526-4d9613015464?fit=crop&fm=jpg&h=300&q=75&w=400"
                 avatar={this.state.Picture}
-                name={this.state.FirstName}
+                name={`${this.state.FirstName}  ${this.state.LastName}`} 
 
 
               />

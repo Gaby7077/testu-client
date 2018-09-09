@@ -2,6 +2,14 @@ import React, { Component } from "react";
 import { NavItem, Nav, NavDropdown, MenuItem } from "react-bootstrap";
 
 class HeaderLinks extends Component {
+
+  logout = e => {
+    e.preventDefault();
+    localStorage.removeItem("token")
+    localStorage.removeItem("role")
+    window.location.replace("/")
+  }
+
   render() {
     const notification = (
       <div>
@@ -13,10 +21,10 @@ class HeaderLinks extends Component {
     );
     return (
       <div>
-        
+
         <Nav pullRight>
-         
-          <NavItem eventKey={3} href="#">
+
+          <NavItem onClick={this.logout}>
             Log out
           </NavItem>
         </Nav>

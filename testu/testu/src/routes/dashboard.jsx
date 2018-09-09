@@ -1,4 +1,3 @@
-import Dashboard from "views/Dashboard/Dashboard";
 import UserProfile from "views/UserProfile/UserProfile";
 import TableList from "views/TableList/TableList";
 import Calificaciones from "views/Calificaciones/Calificaciones";

@@ -12,6 +12,7 @@ import "./assets/sass/light-bootstrap-dashboard.css?v=1.2.0";
 import "./assets/css/demo.css";
 import "./assets/css/pe-icon-7-stroke.css";
 
+//*Funcion que hace la autentificación para las rutas
 const fakeAuth={
   isAuthenticaded:false,
   authenticate(cb){
@@ -24,6 +25,7 @@ const fakeAuth={
   }
 }
 
+//*Funcion que crea que las rutas privadas, que se muestren solo si esta autentificado
 const PrivateRoute=({component:Component,...rest})=>(
   <Route {...rest} render={(props)=>(
     fakeAuth.isAuthenticaded===true
