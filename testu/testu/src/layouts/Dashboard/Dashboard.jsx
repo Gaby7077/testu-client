@@ -9,6 +9,8 @@ import Sidebar from "components/Sidebar/Sidebar";
 import { style } from "variables/Variables.jsx";
 
 import dashboardRoutes from "routes/dashboard.jsx";
+import dashboardAdminRoutes from "routes/dashboardadmin.js";
+import dashboardSuperRoutes from "routes/dashboardsuper.js";
 
 class Dashboard extends Component {
   constructor(props) {
@@ -16,7 +18,8 @@ class Dashboard extends Component {
     this.componentDidMount = this.componentDidMount.bind(this);
     this.handleNotificationClick = this.handleNotificationClick.bind(this);
     this.state = {
-      _notificationSystem: null
+      _notificationSystem: null,
+      role: localStorage.getItem("role")
     };
   }
   handleNotificationClick(position) {
@@ -52,7 +55,7 @@ class Dashboard extends Component {
     });
   }
   componentDidMount() {
-   // this.setState({ _notificationSystem: this.refs.notificationSystem });//
+    // this.setState({ _notificationSystem: this.refs.notificationSystem });//
     var _notificationSystem = this.refs.notificationSystem;
     var color = Math.floor(Math.random() * 4 + 1);
     var level;
@@ -72,7 +75,7 @@ class Dashboard extends Component {
       default:
         break;
     }
-    
+
   }
   componentDidUpdate(e) {
     if (
@@ -89,38 +92,111 @@ class Dashboard extends Component {
     }
   }
   render() {
-    return (
-      <div className="wrapper">
-        <NotificationSystem ref="notificationSystem" style={style} />
-        <Sidebar {...this.props} />
-        <div id="main-panel" className="main-panel" ref="mainPanel">
-          <Header {...this.props} />
-          <Switch>
-            {dashboardRoutes.map((prop, key) => {
-              if (prop.name === "Notifications")
+    //*En caso de que el usuario sea usuario
+    if (this.state.role === "user") {
+      return (
+        <div className="wrapper">
+          <NotificationSystem ref="notificationSystem" style={style} />
+          <Sidebar {...this.props} />
+          <div id="main-panel" className="main-panel" ref="mainPanel">
+            <Header {...this.props} />
+            <Switch>
+              {dashboardRoutes.map((prop, key) => {
+                if (prop.name === "Notifications")
+                  return (
+                    <Route
+                      path={prop.path}
+                      key={key}
+                      render={routeProps => (
+                        <prop.component
+                          {...routeProps}
+                          handleClick={this.handleNotificationClick}
+                        />
+                      )}
+                    />
+                  );
+                if (prop.redirect)
+                  return <Redirect from={prop.path} to={prop.to} key={key} />;
                 return (
-                  <Route
-                    path={prop.path}
-                    key={key}
-                    render={routeProps => (
-                      <prop.component
-                        {...routeProps}
-                        handleClick={this.handleNotificationClick}
-                      />
-                    )}
-                  />
+                  <Route path={prop.path} component={prop.component} key={key} />
                 );
-              if (prop.redirect)
-                return <Redirect from={prop.path} to={prop.to} key={key} />;
-              return (
-                <Route path={prop.path} component={prop.component} key={key} />
-              );
-            })}
-          </Switch>
-          <Footer />
+              })}
+            </Switch>
+            <Footer />
+          </div>
         </div>
-      </div>
-    );
+      );
+    }
+    //*En caso de que el usuario sea admin
+    if (this.state.role === "admin") {
+      return (
+        <div className="wrapper">
+          <NotificationSystem ref="notificationSystem" style={style} />
+          <Sidebar {...this.props} />
+          <div id="main-panel" className="main-panel" ref="mainPanel">
+            <Header {...this.props} />
+            <Switch>
+              {dashboardAdminRoutes.map((prop, key) => {
+                if (prop.name === "Notifications")
+                  return (
+                    <Route
+                      path={prop.path}
+                      key={key}
+                      render={routeProps => (
+                        <prop.component
+                          {...routeProps}
+                          handleClick={this.handleNotificationClick}
+                        />
+                      )}
+                    />
+                  );
+                if (prop.redirect)
+                  return <Redirect from={prop.path} to={prop.to} key={key} />;
+                return (
+                  <Route path={prop.path} component={prop.component} key={key} />
+                );
+              })}
+            </Switch>
+            <Footer />
+          </div>
+        </div>
+      );
+    }
+    //*En caso de que el usuario sea super
+    if (this.state.role === "superadmin") {
+      return (
+        <div className="wrapper">
+          <NotificationSystem ref="notificationSystem" style={style} />
+          <Sidebar {...this.props} />
+          <div id="main-panel" className="main-panel" ref="mainPanel">
+            <Header {...this.props} />
+            <Switch>
+              {dashboardSuperRoutes.map((prop, key) => {
+                if (prop.name === "Notifications")
+                  return (
+                    <Route
+                      path={prop.path}
+                      key={key}
+                      render={routeProps => (
+                        <prop.component
+                          {...routeProps}
+                          handleClick={this.handleNotificationClick}
+                        />
+                      )}
+                    />
+                  );
+                if (prop.redirect)
+                  return <Redirect from={prop.path} to={prop.to} key={key} />;
+                return (
+                  <Route path={prop.path} component={prop.component} key={key} />
+                );
+              })}
+            </Switch>
+            <Footer />
+          </div>
+        </div>
+      );
+    }
   }
 }
 

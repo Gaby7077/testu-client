@@ -25,6 +25,10 @@ export default {
     },
     getClass:function(){
         return axios.get(process.env.REACT_APP_API_URL + "/api/documentos")
+    },
+      //Route for updating profile
+      putUpdate: function (user) {
+        return axios.put(process.env.REACT_APP_API_URL + "/api/update",user)
     }
     
   };

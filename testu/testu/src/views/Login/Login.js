@@ -23,12 +23,14 @@ class Login extends Component {
                     this.setState({
                         user: response.data.authData.user.email
                     })
+                    //La manera de cambiar la pagina a autenficicado
                     this.props.fakeAuth.authenticate(()=>{
                         window.location.replace("/#/user")
                     })
-                    console.log(response.data.authData.user.email)
-                    console.log(response)
-                    //window.location.replace("/#/user");
+                    //console.log(response.data.authData.user.email)
+                    //*Es lo que viene en el token
+                    //console.log(response)
+                
                 }
             })
 
