@@ -13,9 +13,83 @@ import { FormInputs } from "components/FormInputs/FormInputs.jsx";
 import { UserCard } from "components/UserCard/UserCard.jsx";
 import Button from "components/CustomButton/CustomButton.jsx";
 
-import avatar from "assets/img/faces/face-3.jpg";
+import UserAPI from "../../api/user.api";
+
+import { storage } from "../../firebase";
+
+
 
 class UserProfile extends Component {
+  state = {
+    email: "",
+    FirstName: "",
+    LastName: "",
+    empresa: "",
+    Picture: "",
+    image: "",
+  }
+
+
+  componentDidMount() {
+    UserAPI.getUser_data(localStorage.getItem("token"))
+      .then(response => {
+        if (response.data === null) {
+          localStorage.removeItem("token")
+          localStorage.removeItem("role")
+         /* window.location.replace("/");*/
+        }
+        else {
+          this.setState({
+            email: response.data.authData.user.email,
+            FirstName: response.data.authData.user.FirstName,
+            LastName: response.data.authData.user.LastName,
+            empresa: response.data.authData.user.empresa,
+            Picture: response.data.authData.user.Picture,
+          })
+          //console.log(response.data.authData.user.email)
+          console.log(response)
+
+        }
+      })
+
+  }
+
+  handleChange = event => {
+    if (event.target.files[0]) {
+      this.setState({
+        image: event.target.files[0]
+      })
+    }
+  };
+
+  handleUpload = e => {
+    e.preventDefault();
+    const uploadTask = storage.ref(`images/${this.state.image.name}`).put(this.state.image);
+    uploadTask.on("state_changed",
+      (snapshot) => {
+        //progress function ...
+      },
+      (error) => {
+        //error function ...
+        console.log(error)
+      },
+      () => {
+        //complete function ...
+        storage.ref("images").child(this.state.image.name).getDownloadURL().then(url=>{
+          console.log(url)
+          this.setState({
+            Picture:url
+          })
+        })
+      }
+    )
+  }
+
+
+
+
+
+
   render() {
     return (
       <div className="content">
@@ -33,16 +107,17 @@ class UserProfile extends Component {
                           label: "Company (disabled)",
                           type: "text",
                           bsClass: "form-control",
-                          placeholder: "Company",
-                          defaultValue: "Creative Code Inc.",
+                          placeholder: "Empresa",
+                          value: this.state.empresa,
                           disabled: true
                         },
-                  
+
                         {
                           label: "Email address",
                           type: "email",
                           bsClass: "form-control",
-                          placeholder: "Email"
+                          value: this.state.email,
+
                         }
                       ]}
                     />
@@ -54,21 +129,33 @@ class UserProfile extends Component {
                           type: "text",
                           bsClass: "form-control",
                           placeholder: "First name",
-                          defaultValue: "Mike"
+                          value: this.state.FirstName
                         },
                         {
                           label: "Last name",
                           type: "text",
                           bsClass: "form-control",
                           placeholder: "Last name",
-                          defaultValue: "Andrew"
+                          value: this.state.LastName
                         }
                       ]}
                     />
-                    
+                    <FormInputs
+                      ncols={["col-md-6"]}
+                      proprieties={[
+                        {
+                          label: "Cargar Imagen",
+                          type: "file",
+                          bsClass: "form-control",
+                          onChange: this.handleChange
+                        }
+                      ]}
+                    />
 
-                    
-                    <Button bsStyle="info" pullRight fill type="submit">
+
+
+
+                    <Button bsStyle="info" pullRight fill type="submit" onClick={this.handleUpload}>
                       Update Profile
                     </Button>
                     <div className="clearfix" />
@@ -79,9 +166,9 @@ class UserProfile extends Component {
             <Col md={4}>
               <UserCard
                 bgImage="https://ununsplash.imgix.net/photo-1431578500526-4d9613015464?fit=crop&fm=jpg&h=300&q=75&w=400"
-                avatar={avatar}
-                name="Mike Andrew"
-                
+                avatar={this.state.Picture}
+                name={this.state.FirstName}
+
 
               />
             </Col>

@@ -9,7 +9,7 @@ class Login extends Component {
         password: "",
         status: "",
         statusclass: "col-2",
-        user: null
+        user: null,
     }
 
     componentDidMount() {
@@ -23,9 +23,12 @@ class Login extends Component {
                     this.setState({
                         user: response.data.authData.user.email
                     })
+                    this.props.fakeAuth.authenticate(()=>{
+                        window.location.replace("/#/user")
+                    })
                     console.log(response.data.authData.user.email)
                     console.log(response)
-                    window.location.replace("/user");
+                    //window.location.replace("/#/user");
                 }
             })
 
@@ -78,8 +81,12 @@ class Login extends Component {
                         })
                         localStorage.setItem("token", response.data.token);
                         localStorage.setItem("role", response.data.role);
-
-                        window.location.replace("/#/user");
+                        this.props.fakeAuth.authenticate(()=>{
+                            window.location.replace("/#/user")
+                        })
+                          
+                    
+                        
                     }
                 }
 
