@@ -1,5 +1,5 @@
 import UserProfile from "views/UserProfile/UserProfile";
-import TableList from "views/TableList/TableList";
+import Curso from "views/Cursos/Curso";
 
 
 
@@ -11,10 +11,10 @@ const dashboardAdminRoutes = [
     component: UserProfile
   },
   {
-    path: "/table",
+    path: "/cursos",
     name: "Cursos",
     icon: "pe-7s-albums",
-    component: TableList
+    component: Curso
   },
  
   { redirect: true, path: "/", to: "/login", name: "Cursos" }

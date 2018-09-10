@@ -5,8 +5,10 @@ class HeaderLinks extends Component {
 
   logout = e => {
     e.preventDefault();
+    //!Aqui es para el logout
     localStorage.removeItem("token")
     localStorage.removeItem("role")
+    localStorage.removeItem("empresa")
     window.location.replace("/")
   }
 
