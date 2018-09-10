@@ -71,6 +71,7 @@ class TableList extends Component {
                   </Table>
                 }
               />
+            
             </Col>
           </Row>
         </Grid>

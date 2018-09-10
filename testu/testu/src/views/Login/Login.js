@@ -10,14 +10,17 @@ class Login extends Component {
         status: "",
         statusclass: "col-2",
         user: null,
+        empresa:"",
     }
 
     componentDidMount() {
         UserAPI.getUser_data(localStorage.getItem("token"))
             .then(response => {
                 if (response.data === null) {
+                    //!Aqui se elimina localstorage cuando se vence el token
                     localStorage.removeItem("token")
                     localStorage.removeItem("role")
+                    localStorage.removeItem("empresa")
                 }
                 else {
                     this.setState({
@@ -81,8 +84,10 @@ class Login extends Component {
                             statusclass: "col-3 bg-success text-white",
 
                         })
+                        //!Aqui se pone el localStorage cuando es login
                         localStorage.setItem("token", response.data.token);
                         localStorage.setItem("role", response.data.role);
+                        localStorage.setItem("empresa",response.data.empresa)
                         this.props.fakeAuth.authenticate(()=>{
                             window.location.replace("/#/user")
                         })

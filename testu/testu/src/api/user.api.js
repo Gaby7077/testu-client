@@ -29,6 +29,9 @@ export default {
       //Route for updating profile
       putUpdate: function (user) {
         return axios.put(process.env.REACT_APP_API_URL + "/api/update",user)
+    },
+    //Route to get all the course by empresa
+    getCurso:function(empresa){
+        return axios.get(process.env.REACT_APP_API_URL + "/api/curso/" + empresa)
     }
-    
   };
