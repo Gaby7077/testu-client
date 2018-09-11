@@ -1,7 +1,8 @@
 import React, { Component } from 'react';
 import "./Login.css";
 import UserAPI from "../../api/user.api";
-import Parallax from "react-springy-parallax"
+import Parallax from "react-springy-parallax";
+import logo from "../../assets/img/logotestu.png";
 
 class Login extends Component {
     state = {
@@ -119,7 +120,7 @@ class Login extends Component {
             <div>
                 <Parallax ref="parallax" pages={2}>
 
-                    <Parallax.Layer className="" offset={0} speed={1} style={{ backgroundColor: '#243B4A' }} />
+                    <Parallax.Layer className="primerlayer" offset={0} speed={1} style={{ }} />
                     <Parallax.Layer offset={1} speed={1} style={{ backgroundColor: '#805E73' }} />
                     <Parallax.Layer offset={2} speed={1} style={{ backgroundColor: '#87BCDE' }} />
 
@@ -128,12 +129,23 @@ class Login extends Component {
                         speed={0.5}
                         style={styles}
                         onClick={() => this.refs.parallax.scrollTo(1)}>
-                        <div>
-
-
-                            
-                        </div>
-                        Click!
+                        <div className="container">
+                            <div className="row">
+                            <div className="col-md-3 col-md-offset-1"></div>
+                                <div className="col-md-6 col-md-offset-3">
+                                    <img src={logo} alt="logo"/>
+                                </div>
+                            <div className="col-md-3 col-md-offset-1"></div>
+                            </div>
+                            <div className="row">
+                            <div className="col-md-3 col-md-offset-1"></div>
+                                <div className="col-md-6 col-md-offset-3">
+                                    TestU is an app that allows you to create courses and tests, to streamline the process of training within the company. TestU allows you to create and customize courses and tests. 
+                                </div>
+                            <div className="col-md-3 col-md-offset-1"></div>
+                            </div>
+                            </div>
+                        
                     </Parallax.Layer>
 
                     <Parallax.Layer
