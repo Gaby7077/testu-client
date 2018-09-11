@@ -14,7 +14,7 @@ import "./assets/css/pe-icon-7-stroke.css";
 
 //*Funcion que hace la autentificación para las rutas
 const fakeAuth={
-  isAuthenticaded:false,
+  isAuthenticaded:true,
   authenticate(cb){
     this.isAuthenticaded=true;
     setTimeout(cb,100) // fake async

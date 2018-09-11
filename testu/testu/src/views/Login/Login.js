@@ -1,7 +1,8 @@
 import React, { Component } from 'react';
 import "./Login.css";
 import UserAPI from "../../api/user.api";
-
+import Parallax from "react-springy-parallax";
+import logo from "../../assets/img/logotestu.png";
 
 class Login extends Component {
     state = {
@@ -108,18 +109,54 @@ class Login extends Component {
 
     render() {
         const loggedIn = this.state.loggedIn
+        const styles = {
+            fontFamily: 'Menlo-Regular, Menlo, monospace',
+            fontSize: 14,
+            lineHeight: '10px',
+            color: 'white',
+            display: 'flex', alignItems: 'center', justifyContent: 'center'
+        }
         return (
             <div>
-                <nav className="navbar navbar-default">
-                    <div className="container-fluid">
-                        <div className="navbar-header">
-                        </div>
-                    </div>
-                </nav>
-                <div className="container">
+                <Parallax ref="parallax" pages={2}>
+
+                    <Parallax.Layer className="primerlayer" offset={0} speed={1} style={{ }} />
+                    <Parallax.Layer offset={1} speed={1} style={{ backgroundColor: '#805E73' }} />
+                    <Parallax.Layer offset={2} speed={1} style={{ backgroundColor: '#87BCDE' }} />
+
+                    <Parallax.Layer
+                        offset={0}
+                        speed={0.5}
+                        style={styles}
+                        onClick={() => this.refs.parallax.scrollTo(1)}>
+                        <div className="container">
+                            <div className="row">
+                            <div className="col-md-3 col-md-offset-1"></div>
+                                <div className="col-md-6 col-md-offset-3">
+                                    <img src={logo} alt="logo"/>
+                                </div>
+                            <div className="col-md-3 col-md-offset-1"></div>
+                            </div>
+                            <div className="row">
+                            <div className="col-md-3 col-md-offset-1"></div>
+                                <div className="col-md-6 col-md-offset-3">
+                                    TestU is an app that allows you to create courses and tests, to streamline the process of training within the company. TestU allows you to create and customize courses and tests. 
+                                </div>
+                            <div className="col-md-3 col-md-offset-1"></div>
+                            </div>
+                            </div>
+                        
+                    </Parallax.Layer>
+
+                    <Parallax.Layer
+                        offset={1}
+                        speed={-0.1}
+                        style={styles}
+                        onClick={() => this.refs.parallax.scrollTo(2)}>
+                         <div className="container">
                     <div className="row">
                         <div className="col-md-6 col-md-offset-3">
-                            <h2>Login Form</h2>
+                            <h2>Iniciar sesión</h2>
                             <form className="login">
                                 <div className="form-group">
                                     <label htmlFor="exampleInputEmail1">Email address</label>
@@ -151,6 +188,20 @@ class Login extends Component {
                             )}
                     </div>
                 </div>
+
+
+
+
+
+        </Parallax.Layer>
+
+                  
+
+                </Parallax>
+
+
+               
+                
             </div>
 
 
