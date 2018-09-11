@@ -3,8 +3,20 @@ import { Button } from "react-bootstrap";
 import cx from "classnames";
 import PropTypes from "prop-types";
 
-class CustomButton extends Component {
+class MaterialButton extends Component {
+  constructor(props, context) {
+    super(props, context);
 
+    this.agregarMaterial = this.agregarMaterial.bind(this);
+    
+    this.state = {
+        cursoid:this.props.cursoid
+    };
+}
+
+agregarMaterial(){
+  console.log(this.state.cursoid)
+}
   
   render() {
     const { fill, simple, pullRight, round, block, ...rest } = this.props;
@@ -17,11 +29,11 @@ class CustomButton extends Component {
       "btn-round": round
     });
 
-    return <Button className={btnClasses} {...rest} />;
+    return <Button className={btnClasses}  {...rest} />;
   }
 }
 
-CustomButton.propTypes = {
+MaterialButton.propTypes = {
   fill: PropTypes.bool,
   simple: PropTypes.bool,
   pullRight: PropTypes.bool,
@@ -29,4 +41,4 @@ CustomButton.propTypes = {
   round: PropTypes.bool
 };
 
-export default CustomButton;
+export default MaterialButton;

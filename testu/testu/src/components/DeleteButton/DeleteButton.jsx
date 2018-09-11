@@ -2,9 +2,27 @@ import React, { Component } from "react";
 import { Button } from "react-bootstrap";
 import cx from "classnames";
 import PropTypes from "prop-types";
+import UserAPI from "../../api/user.api";
 
-class CustomButton extends Component {
+class DeleteButton extends Component {
+  constructor(props, context) {
+    super(props, context);
 
+    this.borrarCurso=this.borrarCurso.bind(this);
+    
+    this.state = {
+        id:this.props.id
+    };
+}
+
+borrarCurso(){
+  UserAPI.postBorrarCurso({
+    id:this.state.id
+  })
+  .then(data=>{
+    console.log(data)
+  })
+}
   
   render() {
     const { fill, simple, pullRight, round, block, ...rest } = this.props;
@@ -17,11 +35,11 @@ class CustomButton extends Component {
       "btn-round": round
     });
 
-    return <Button className={btnClasses} {...rest} />;
+    return <Button className={btnClasses} onClick={this.borrarCurso} {...rest} />;
   }
 }
 
-CustomButton.propTypes = {
+DeleteButton.propTypes = {
   fill: PropTypes.bool,
   simple: PropTypes.bool,
   pullRight: PropTypes.bool,
@@ -29,4 +47,4 @@ CustomButton.propTypes = {
   round: PropTypes.bool
 };
 
-export default CustomButton;
+export default DeleteButton;
