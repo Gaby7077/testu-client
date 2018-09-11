@@ -9,23 +9,31 @@ class Login extends Component {
         password: "",
         status: "",
         statusclass: "col-2",
-        user: null
+        user: null,
+        empresa:"",
     }
 
     componentDidMount() {
         UserAPI.getUser_data(localStorage.getItem("token"))
             .then(response => {
                 if (response.data === null) {
+                    //!Aqui se elimina localstorage cuando se vence el token
                     localStorage.removeItem("token")
                     localStorage.removeItem("role")
+                    localStorage.removeItem("empresa")
                 }
                 else {
                     this.setState({
                         user: response.data.authData.user.email
                     })
-                    console.log(response.data.authData.user.email)
-                    console.log(response)
-                    window.location.replace("/user");
+                    //La manera de cambiar la pagina a autenficicado
+                    this.props.fakeAuth.authenticate(()=>{
+                        window.location.replace("/#/user")
+                    })
+                    //console.log(response.data.authData.user.email)
+                    //*Es lo que viene en el token
+                    //console.log(response)
+                
                 }
             })
 
@@ -76,10 +84,16 @@ class Login extends Component {
                             statusclass: "col-3 bg-success text-white",
 
                         })
+                        //!Aqui se pone el localStorage cuando es login
                         localStorage.setItem("token", response.data.token);
                         localStorage.setItem("role", response.data.role);
-
-                        window.location.replace("/#/user");
+                        localStorage.setItem("empresa",response.data.empresa)
+                        this.props.fakeAuth.authenticate(()=>{
+                            window.location.replace("/#/user")
+                        })
+                          
+                    
+                        
                     }
                 }
 
