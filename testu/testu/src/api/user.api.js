@@ -33,5 +33,13 @@ export default {
     //Route to get all the course by empresa
     getCurso:function(empresa){
         return axios.get(process.env.REACT_APP_API_URL + "/api/curso/" + empresa)
+    },
+    //Route to create a course
+    postCurso:function(data){
+        return axios.post(process.env.REACT_APP_API_URL + "/api/curso/",data)
+    },
+    //Rout to delete a course
+    postBorrarCurso:function(data){
+        return axios.post(process.env.REACT_APP_API_URL + "/curso/delete",data)
     }
   };
