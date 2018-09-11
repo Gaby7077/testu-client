@@ -114,6 +114,11 @@ class Login extends Component {
                         speed={0.5}
                         style={styles}
                         onClick={() => this.refs.parallax.scrollTo(1)}>
+                        <div>
+
+
+                            
+                        </div>
                         Click!
                     </Parallax.Layer>
 
