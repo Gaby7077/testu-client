@@ -4,7 +4,9 @@ import { NavLink } from "react-router-dom";
 import HeaderLinks from "../Header/HeaderLinks.jsx";
 
 import imagine from "assets/img/sidebar-4.jpg";
-//agregar y cambiar logo//
+
+//agregar y cambiar logo de TestU//
+
 import logo from "assets/img/reactlogo.png";
 
 import dashboardRoutes from "routes/dashboard.jsx";
@@ -33,6 +35,7 @@ class Sidebar extends Component {
     const sidebarBackground = {
       backgroundImage: "url(" + imagine + ")"
     };
+
 //* En caso de que el usuario sea user
     if (this.state.role === "user") {
       return (
@@ -57,6 +60,7 @@ class Sidebar extends Component {
               className="simple-text logo-normal"
             >
               TestU
+
           </a>
           </div>
           <div className="sidebar-wrapper">

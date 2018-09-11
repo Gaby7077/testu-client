@@ -149,7 +149,7 @@ class UserProfile extends Component {
                       ncols={["col-md-6", "col-md-6"]}
                       proprieties={[
                         {
-                          label: "Company (disabled)",
+                          label: "Empresa (disabled)",
                           type: "text",
                           bsClass: "form-control",
                           placeholder: "Empresa",
@@ -158,7 +158,7 @@ class UserProfile extends Component {
                         },
 
                         {
-                          label: "Email address",
+                          label: "Correo electrónico",
                           type: "email",
                           bsClass: "form-control",
                           value: this.state.email,
@@ -171,7 +171,7 @@ class UserProfile extends Component {
                       ncols={["col-md-6", "col-md-6"]}
                       proprieties={[
                         {
-                          label: "First name",
+                          label: "Nombre",
                           type: "text",
                           bsClass: "form-control",
                           name: "FirstName",
@@ -179,7 +179,7 @@ class UserProfile extends Component {
                           onChange: this.handleInputChange
                         },
                         {
-                          label: "Last name",
+                          label: "Apellido",
                           type: "text",
                           bsClass: "form-control",
                           name: "LastName",
@@ -205,10 +205,10 @@ class UserProfile extends Component {
                     </div>
 
 
-
-
+                    
                     <Button bsStyle="info" pullRight fill type="submit" onClick={this.handleUpload}>
-                      Update Profile
+                      Actualizar perfil
+
                     </Button>
                     <div className="clearfix" />
                   </form>
