@@ -30,7 +30,7 @@ class UserProfile extends Component {
                       ncols={["col-md-6", "col-md-6"]}
                       proprieties={[
                         {
-                          label: "Company (disabled)",
+                          label: "Empresa (disabled)",
                           type: "text",
                           bsClass: "form-control",
                           placeholder: "Company",
@@ -39,7 +39,7 @@ class UserProfile extends Component {
                         },
                   
                         {
-                          label: "Email address",
+                          label: "Correo electrónico",
                           type: "email",
                           bsClass: "form-control",
                           placeholder: "Email"
@@ -50,14 +50,14 @@ class UserProfile extends Component {
                       ncols={["col-md-6", "col-md-6"]}
                       proprieties={[
                         {
-                          label: "First name",
+                          label: "Nombre",
                           type: "text",
                           bsClass: "form-control",
                           placeholder: "First name",
                           defaultValue: "Mike"
                         },
                         {
-                          label: "Last name",
+                          label: "Apellido",
                           type: "text",
                           bsClass: "form-control",
                           placeholder: "Last name",
@@ -69,7 +69,7 @@ class UserProfile extends Component {
 
                     
                     <Button bsStyle="info" pullRight fill type="submit">
-                      Update Profile
+                      Actualizar perfil
                     </Button>
                     <div className="clearfix" />
                   </form>

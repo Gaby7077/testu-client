@@ -3,8 +3,8 @@ import { NavLink } from "react-router-dom";
 
 import HeaderLinks from "../Header/HeaderLinks.jsx";
 
-import imagine from "assets/img/sidebar-3.jpg";
-//agregar y cambiar logo//
+import imagine from "assets/img/sidebar-4.jpg";
+//agregar y cambiar logo de TestU//
 import logo from "assets/img/reactlogo.png";
 
 import dashboardRoutes from "routes/dashboard.jsx";
@@ -34,7 +34,7 @@ class Sidebar extends Component {
       <div
         id="sidebar"
         className="sidebar"
-        data-color="black"
+        data-color=""
         data-image={imagine}
       >
         <div className="sidebar-background" style={sidebarBackground} />
