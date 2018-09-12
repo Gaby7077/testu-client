@@ -23,8 +23,10 @@ export default {
     postUpload:function(clase){
         return axios.post(process.env.REACT_APP_API_URL + "/upload",clase)
     },
-    getClass:function(){
-        return axios.get(process.env.REACT_APP_API_URL + "/api/documentos")
+
+    //Route to get all the documents uploaded
+    getClass:function(empresa){
+        return axios.get(process.env.REACT_APP_API_URL + "/api/documentos/" + empresa)
     },
       //Route for updating profile
       putUpdate: function (user) {
@@ -38,8 +40,12 @@ export default {
     postCurso:function(data){
         return axios.post(process.env.REACT_APP_API_URL + "/api/curso/",data)
     },
-    //Rout to delete a course
+    //Route to delete a course
     postBorrarCurso:function(data){
         return axios.post(process.env.REACT_APP_API_URL + "/curso/delete",data)
+    },
+    //Route to delete a document
+    postBorrarDocumento:function(data){
+        return axios.post(process.env.REACT_APP_API_URL + "/documento/delete",data)
     }
   };
