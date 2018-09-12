@@ -36,14 +36,19 @@ class Curso extends Component {
     }
 
     componentDidMount() {
+        this.obtenerCursos();
+    }
+
+    //*Funcion para obtener los datos nuevos y ponerlos en el render
+    obtenerCursos(){
         UserAPI.getCurso(this.state.empresa)
 
-            .then(response => {
-                console.log(response)
-                this.setState({
-                    cursos: response.data
-                })
+        .then(response => {
+            console.log(response)
+            this.setState({
+                cursos: response.data
             })
+        })
     }
 
     handleInputChange = event => {
@@ -53,19 +58,21 @@ class Curso extends Component {
         });
     };
 
-
+//*Funcion para cerrar el modal de agregar curso
     handleClose() {
         this.setState({ show: false });
     }
 
+//*Funcion para abrir el modal de agregar curso
     handleShow() {
         this.setState({ show: true });
     }
-
+//*Funcion para cerrar el modal de agregar material
     handleCloseMaterial() {
         this.setState({ showMaterial: false });
     }
 
+//*Funcion para abrir el modal de agregar material
     handleShowMaterial(e) {
         let prueba = e.target.getAttribute("cursoid")
         this.setState({
@@ -75,7 +82,7 @@ class Curso extends Component {
         });
         //console.log(prueba);
     }
-
+//*Funcion para agregar curso
     handleModalSubmit() {
         UserAPI.postCurso({
             curso: this.state.cursoNuevo,
@@ -84,10 +91,25 @@ class Curso extends Component {
             .then(response => {
                 console.log(response);
                 this.handleClose();
+                this.obtenerCursos();
             })
 
     }
-//Funcion para añadir archivo
+
+//Funcion para borrar curso
+borrarCurso(e){
+    let cursoId = e.target.getAttribute("id")
+    //console.log(documentoId)
+    UserAPI.postBorrarCurso({
+        id:cursoId
+    })
+    .then(response=>{
+        console.log(response)
+        this.obtenerCursos();
+    });
+
+}
+//*Funcion para añadir archivo
     FilehandleChange = event => {
         if (event.target.files[0]) {
             this.setState({
@@ -143,6 +165,7 @@ class Curso extends Component {
                             upLoadValue:0
                           })
                           this.handleCloseMaterial();
+                          
                     })
                     
                     
@@ -217,7 +240,7 @@ class Curso extends Component {
                                                             <Button bsStyle="info" cursoid={respuesta.curso} fill type="submit" onClick={(e) => this.handleShowMaterial(e)}>Agregar Material</Button>
                                                         </td>
                                                         <td>
-                                                            <DeleteButton bsStyle="danger" id={respuesta.id} fill type="submit">Borrar Curso</DeleteButton>
+                                                            <Button bsStyle="danger" id={respuesta.id} fill type="submit" onClick={(e)=>this.borrarCurso(e)}>Borrar Curso</Button>
                                                         </td>
                                                     </tr>
                                                 )
