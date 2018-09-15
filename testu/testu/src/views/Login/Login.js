@@ -27,10 +27,9 @@ class Login extends Component {
                     this.setState({
                         user: response.data.authData.user.email
                     })
-                    //La manera de cambiar la pagina a autenficicado
-                    this.props.fakeAuth.authenticate(()=>{
+                    
                         window.location.replace("/#/user")
-                    })
+                    
                     //console.log(response.data.authData.user.email)
                     //*Es lo que viene en el token
                     //console.log(response)
@@ -89,9 +88,8 @@ class Login extends Component {
                         localStorage.setItem("token", response.data.token);
                         localStorage.setItem("role", response.data.role);
                         localStorage.setItem("empresa",response.data.empresa)
-                        this.props.fakeAuth.authenticate(()=>{
                             window.location.replace("/#/user")
-                        })
+                        
                           
                     
                         

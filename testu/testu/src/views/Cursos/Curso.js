@@ -41,6 +41,7 @@ class Curso extends Component {
 
     componentDidMount() {
         this.obtenerCursos();
+        
     }
 
     //*Funcion para obtener los datos nuevos y ponerlos en el render
