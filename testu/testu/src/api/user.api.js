@@ -41,11 +41,25 @@ export default {
         return axios.post(process.env.REACT_APP_API_URL + "/api/curso/",data)
     },
     //Route to delete a course
-    postBorrarCurso:function(data){
-        return axios.post(process.env.REACT_APP_API_URL + "/curso/delete",data)
+    deleteBorrarCurso:function(id){
+        return axios.delete(process.env.REACT_APP_API_URL + "/borrar/curso/" + id)
     },
     //Route to delete a document
     postBorrarDocumento:function(data){
         return axios.post(process.env.REACT_APP_API_URL + "/documento/delete",data)
+    },
+    //Route to know if material has been uploaded
+    getDocumentoCurso:function(id){
+        return axios.get(process.env.REACT_APP_API_URL + "/api/documentocurso/"+id)
+    },
+    //Route to add a question
+    postAgregarPregunta:function(data){
+        return axios.post(process.env.REACT_APP_API_URL + "/api/pregunta",data)
+    },
+    //Route to get the questions
+    getPreguntasCurso:function(CursoId){
+        return axios.get(process.env.REACT_APP_API_URL + "/api/pregunta/"+ CursoId)
     }
+
+
   };

@@ -2,7 +2,6 @@ import React, { Component } from 'react';
 import { Grid, Row, Col, Table, Modal, ProgressBar } from "react-bootstrap";
 import Card from "components/Card/Card.jsx";
 import Button from "components/MaterialButton/MaterialButton.jsx";
-import DeleteButton from "components/DeleteButton/DeleteButton.jsx"
 import { FormInputs } from "components/FormInputs/FormInputs.jsx";
 import UserAPI from "../../api/user.api";
 import { storage } from "../../firebase";
@@ -17,12 +16,16 @@ class Curso extends Component {
         this.handleClose = this.handleClose.bind(this);
         this.handleShowMaterial = this.handleShowMaterial.bind(this);
         this.handleCloseMaterial = this.handleCloseMaterial.bind(this);
+        this.handleShowPregunta = this.handleShowPregunta.bind(this);
+        this.handleClosePregunta = this.handleClosePregunta.bind(this)
         this.handleModalSubmit = this.handleModalSubmit.bind(this);
         this.agregarMaterial = this.agregarMaterial.bind(this);
+        
 
         this.state = {
             show: false,
             showMaterial: false,
+            showPregunta:false,
             empresa: localStorage.getItem("empresa"),
             cursos: [],
             cursoNuevo: "",
@@ -30,8 +33,9 @@ class Curso extends Component {
             material: null,
             documento: null,
             btndis: true,
-            upLoadValue:0,
-            documentoUrl:"",
+            upLoadValue: 0,
+            documentoUrl: "",
+            hayMaterial: ""
         };
     }
 
@@ -40,15 +44,15 @@ class Curso extends Component {
     }
 
     //*Funcion para obtener los datos nuevos y ponerlos en el render
-    obtenerCursos(){
+    obtenerCursos() {
         UserAPI.getCurso(this.state.empresa)
 
-        .then(response => {
-            console.log(response)
-            this.setState({
-                cursos: response.data
+            .then(response => {
+                console.log(response)
+                this.setState({
+                    cursos: response.data
+                })
             })
-        })
     }
 
     handleInputChange = event => {
@@ -58,31 +62,46 @@ class Curso extends Component {
         });
     };
 
-//*Funcion para cerrar el modal de agregar curso
+    //*Funcion para cerrar el modal de agregar curso
     handleClose() {
         this.setState({ show: false });
     }
 
-//*Funcion para abrir el modal de agregar curso
+    //*Funcion para abrir el modal de agregar curso
     handleShow() {
         this.setState({ show: true });
     }
-//*Funcion para cerrar el modal de agregar material
+    //*Funcion para cerrar el modal de agregar material
     handleCloseMaterial() {
         this.setState({ showMaterial: false });
     }
 
-//*Funcion para abrir el modal de agregar material
+    //*Funcion para abrir el modal de agregar material
     handleShowMaterial(e) {
         let prueba = e.target.getAttribute("cursoid")
         this.setState({
             showMaterial: true,
             cursoid: prueba,
-            btndis:true
+            btndis: true
         });
         //console.log(prueba);
     }
-//*Funcion para agregar curso
+
+     //*Funcion para cerrar el modal de agregar material
+     handleClosePregunta() {
+        this.setState({ showPregunta: false });
+    }
+
+    //*Funcion para abrir el modal de agregar material
+    handleShowPregunta(e) {
+        let prueba = e.target.getAttribute("cursoid")
+        this.setState({
+            showPregunta: true,
+            cursoid: prueba,
+        });
+        //console.log(prueba);
+    }
+    //*Funcion para agregar curso
     handleModalSubmit() {
         UserAPI.postCurso({
             curso: this.state.cursoNuevo,
@@ -96,87 +115,99 @@ class Curso extends Component {
 
     }
 
-//Funcion para borrar curso
-borrarCurso(e){
-    let cursoId = e.target.getAttribute("id")
-    //console.log(documentoId)
-    UserAPI.postBorrarCurso({
-        id:cursoId
-    })
-    .then(response=>{
-        console.log(response)
-        this.obtenerCursos();
-    });
+        //*Funcion para agregar pregunta
+        handleModalSubmitPregunta() {
+            UserAPI.postCurso({
+                pregunta: this.state.preguntaNueva,
+                empresa: this.state.empresa,
+            })
+                .then(response => {
+                    console.log(response);
+                    this.handleClose();
+                    this.obtenerCursos();
+                })
+    
+        }
 
-}
-//*Funcion para añadir archivo
+    //Funcion para borrar curso
+    borrarCurso(e) {
+        let cursoId = e.target.getAttribute("id")
+        //console.log(documentoId)
+        UserAPI.deleteBorrarCurso(cursoId)
+            .then(response => {
+                console.log(response)
+                this.obtenerCursos();
+            });
+
+    }
+    //*Funcion para añadir archivo
     FilehandleChange = event => {
         if (event.target.files[0]) {
             this.setState({
                 documento: event.target.files[0],
-                btndis:false
+                btndis: false
             })
         }
-      
-    }
 
+    };
     
-    //Funcion del Modal para agregar material
-    agregarMaterial= e => {
-            e.preventDefault();
-            if (this.state.documento) {
-              let filename=`${Date.now()}${this.state.documento.name}`
-              const uploadTask = storage.ref(`documentos/${filename}`).put(this.state.documento);
-              uploadTask.on("state_changed",
+
+      //Funcion del Modal para agregar material
+    agregarMaterial = e => {
+        e.preventDefault();
+        if (this.state.documento) {
+            let filename = `${Date.now()}${this.state.documento.name}`
+            const uploadTask = storage.ref(`documentos/${filename}`).put(this.state.documento);
+            uploadTask.on("state_changed",
                 (snapshot) => {
-                  //progress function ...
-                  let percentage=(snapshot.bytesTransferred/snapshot.totalBytes)*100
-                  this.setState({
-                    upLoadValue:percentage
-                  })
+                    //progress function ...
+                    let percentage = (snapshot.bytesTransferred / snapshot.totalBytes) * 100
+                    this.setState({
+                        upLoadValue: percentage
+                    })
                 },
                 (error) => {
-                  //error function ...
-                  console.log(error)
-                  this.setState({
-                    message:`Ha ocurrido un error: ${error.message}`
-                  })
+                    //error function ...
+                    console.log(error)
+                    this.setState({
+                        message: `Ha ocurrido un error: ${error.message}`
+                    })
                 },
                 () => {
-                  //complete function ...
-                  storage.ref("documentos").child(filename).getDownloadURL().then(url => {
-                    //console.log(url)
-                    this.setState({
-                        documentoUrl: url,
-                    })
-                    userApi.postUpload({
-                        curso:this.state.cursoid,
-                        ubicacion: this.state.documentoUrl,
-                        documento:this.state.material,
-                        empresa:this.state.empresa
-                    })
-                    .then(response=>{
-                        console.log(response.data)
+                    //complete function ...
+                    storage.ref("documentos").child(filename).getDownloadURL().then(url => {
+                        //console.log(url)
                         this.setState({
-                            documentoUrl: "",
-                            message:`Archivo cargado`,
-                            documento:null,
-                            material:null,
-                            upLoadValue:0
-                          })
-                          this.handleCloseMaterial();
-                          
+                            documentoUrl: url,
+                        })
+                        userApi.postUpload({
+                            CursoId: this.state.cursoid,
+                            ubicacion: this.state.documentoUrl,
+                            documento: this.state.material,
+                            empresa: this.state.empresa
+                        })
+                            .then(response => {
+                                console.log(response.data)
+                                this.setState({
+                                    documentoUrl: "",
+                                    message: `Archivo cargado`,
+                                    documento: null,
+                                    material: null,
+                                    upLoadValue: 0
+                                })
+                                this.handleCloseMaterial();
+
+                            })
+
+
+
+
+
+
                     })
-                    
-                    
-                   
-                    
-                    
-        
-                  })
                 }
-              )
-            }
+            )
+        }
 
 
     }
@@ -208,6 +239,12 @@ borrarCurso(e){
                                                 </th>
                                                 <th>
                                                     Agregar Material
+                                                </th>                        
+                                                <th>
+                                                    Agregar Preguntas
+                                                </th>
+                                                <th>
+                                                    Crear Examen
                                                 </th>
                                                 <th>
                                                     Borrar Curso
@@ -217,13 +254,13 @@ borrarCurso(e){
                                         <tbody>
                                             {this.state.cursos.map((respuesta, index) => {
                                                 let indice = index + 1;
-                                                let hayMaterial;
-                                                if (respuesta.Material) {
-                                                    hayMaterial = "Si"
-                                                }
-                                                else {
-                                                    hayMaterial = "No"
-                                                }
+                                                let material;
+                                                if(respuesta.Clases.length>0){
+                                                    material="Si"
+                                                }else{
+                                                    material="No"                                                }
+                                            
+
                                                 return (
 
                                                     <tr key={respuesta.id}>
@@ -234,13 +271,19 @@ borrarCurso(e){
                                                             {respuesta.curso}
                                                         </td>
                                                         <td>
-                                                            {hayMaterial}
+                                                            {material}
                                                         </td>
                                                         <td>
-                                                            <Button bsStyle="info" cursoid={respuesta.curso} fill type="submit" onClick={(e) => this.handleShowMaterial(e)}>Agregar Material</Button>
+                                                            <Button bsStyle="info" cursoid={respuesta.id} fill type="submit" onClick={(e) => this.handleShowMaterial(e)}>Agregar Material</Button>
                                                         </td>
                                                         <td>
-                                                            <Button bsStyle="danger" id={respuesta.id} fill type="submit" onClick={(e)=>this.borrarCurso(e)}>Borrar Curso</Button>
+                                                            <Button bsStyle="info" fill type="submit" onClick={(e)=>this.handleShowPregunta(e)}>Agregar Pregunta</Button>
+                                                        </td>
+                                                        <td>
+                                                        <Button bsStyle="info" fill type="submit">Crear Examen</Button>
+                                                        </td>
+                                                        <td>
+                                                            <Button bsStyle="danger" id={respuesta.id} fill type="submit" onClick={(e) => this.borrarCurso(e)}>Borrar Curso</Button>
                                                         </td>
                                                     </tr>
                                                 )
@@ -286,7 +329,7 @@ borrarCurso(e){
                 {/*This is the modal for adding material*/}
                 <Modal show={this.state.showMaterial} onHide={this.handleCloseMaterial}>
                     <Modal.Header closeButton>
-                        <Modal.Title>Agregar Material para {this.state.cursoid}</Modal.Title>
+                        <Modal.Title>Agregar Material</Modal.Title>
                     </Modal.Header>
 
                     <Modal.Body>
@@ -319,6 +362,33 @@ borrarCurso(e){
                     <Modal.Footer>
                         <Button onClick={this.handleCloseMaterial}>Close</Button>
                         <Button bsStyle="primary" disabled={this.state.btndis} onClick={this.agregarMaterial}>Agregar Material</Button>
+                    </Modal.Footer>
+                </Modal>
+
+                {/*This is the modal for adding pregunta*/}
+                <Modal show={this.state.showPregunta} onHide={this.handleClosePregunta}>
+                    <Modal.Header closeButton>
+                        <Modal.Title>Agregar Pregunta</Modal.Title>
+                    </Modal.Header>
+
+                    <Modal.Body>
+                        <FormInputs
+                            ncols={["col-md-12"]}
+                            proprieties={[
+                                {
+                                    label: "Pregunta",
+                                    type: "text",
+                                    bsClass: "form-control",
+                                    name: "preguntaNueva",
+                                    onChange: this.handleInputChange
+                                }
+                            ]}
+                        />
+                    </Modal.Body>
+
+                    <Modal.Footer>
+                        <Button onClick={this.handleClosePregunta}>Close</Button>
+                        <Button bsStyle="primary" onClick={this.handleModalSubmitPregunta}>Agregar Pregunta</Button>
                     </Modal.Footer>
                 </Modal>
 

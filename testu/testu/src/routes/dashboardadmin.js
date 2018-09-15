@@ -1,6 +1,7 @@
 import UserProfile from "views/UserProfile/UserProfile";
 import Curso from "views/Cursos/Curso";
 import Material from "views/Material/Material"
+import Pregunta from "views/Preguntas/Pregunta"
 
 
 
@@ -22,6 +23,12 @@ const dashboardAdminRoutes = [
     name: "Material",
     icon: "pe-7s-albums",
     component: Material
+  },
+  {
+    path:"/pregunta",
+    name: "Crear Preguntas",
+    icon: "pe-7s-albums",
+    component: Pregunta
   },
  
   { redirect: true, path: "/", to: "/login", name: "Cursos" }
