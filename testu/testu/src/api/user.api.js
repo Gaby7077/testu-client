@@ -59,6 +59,10 @@ export default {
     //Route to get the questions
     getPreguntasCurso:function(CursoId){
         return axios.get(process.env.REACT_APP_API_URL + "/api/pregunta/"+ CursoId)
+    },
+    //Route to add an answer
+    postAgregarRespuesta:function(data){
+        return axios.post(process.env.REACT_APP_API_URL + "/api/respuestas",data)
     }
 
 
