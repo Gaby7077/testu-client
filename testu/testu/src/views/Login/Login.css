@@ -1,6 +1,5 @@
-
-.primerlayer {
-    background-image: url("../../assets/img/back2.png");
+.fondo {
+    background-image: url("../../assets/img/backcolor.png");
 }
 
 .logo {
@@ -13,4 +12,28 @@
     width: 50%;
     color: purple;
 
+}
+
+.panel {
+    display: block;
+    /*font-family: 'Source Sans Pro';*/
+   /*font-size: 1.3em;*/
+    position: absolute;
+    z-index: 10;
+    width: 400px;
+    height: 360px;
+    background: #eee;
+    top: 40%;
+    
+    margin: -110px 0 100px -110px;
+  
+    border-radius: 4px;
+    box-sizing: border-box;
+    z-index: 100;
+}
+
+
+
+.prueba{
+    font-size: 20px;
 }

@@ -1,8 +1,10 @@
 import React, { Component } from 'react';
 import "./Login.css";
 import UserAPI from "../../api/user.api";
-import Parallax from "react-springy-parallax";
 import logo from "../../assets/img/logotestu.png";
+import Particles from "react-particles-js";
+import Background from "components/Background/Background.jsx"
+
 
 class Login extends Component {
     state = {
@@ -11,7 +13,7 @@ class Login extends Component {
         status: "",
         statusclass: "col-2",
         user: null,
-        empresa:"",
+        empresa: "",
     }
 
     componentDidMount() {
@@ -28,13 +30,13 @@ class Login extends Component {
                         user: response.data.authData.user.email
                     })
                     //La manera de cambiar la pagina a autenficicado
-                    this.props.fakeAuth.authenticate(()=>{
+                    this.props.fakeAuth.authenticate(() => {
                         window.location.replace("/#/user")
                     })
                     //console.log(response.data.authData.user.email)
                     //*Es lo que viene en el token
                     //console.log(response)
-                
+
                 }
             })
 
@@ -88,13 +90,13 @@ class Login extends Component {
                         //!Aqui se pone el localStorage cuando es login
                         localStorage.setItem("token", response.data.token);
                         localStorage.setItem("role", response.data.role);
-                        localStorage.setItem("empresa",response.data.empresa)
-                        this.props.fakeAuth.authenticate(()=>{
+                        localStorage.setItem("empresa", response.data.empresa)
+                        this.props.fakeAuth.authenticate(() => {
                             window.location.replace("/#/user")
                         })
-                          
-                    
-                        
+
+
+
                     }
                 }
 
@@ -109,55 +111,21 @@ class Login extends Component {
 
     render() {
         const loggedIn = this.state.loggedIn
-        const styles = {
-            fontFamily: 'Menlo-Regular, Menlo, monospace',
-            fontSize: 14,
-            lineHeight: '10px',
-            color: 'white',
-            display: 'flex', alignItems: 'center', justifyContent: 'center'
-        }
+
+    
         return (
             <div>
-                <Parallax ref="parallax" pages={2}>
+               <Background/>
 
-                    <Parallax.Layer className="primerlayer" offset={0} speed={1} style={{ }} />
-                    <Parallax.Layer offset={1} speed={1} style={{ backgroundColor: '#805E73' }} />
-                    <Parallax.Layer offset={2} speed={1} style={{ backgroundColor: '#87BCDE' }} />
+                <div className="row justify-content-center">
+                    <div className="panel">
+                        <div className="col-md-1">
+                        </div>
+                        <div className="col-md-10">
+                            <h1 className="prueba">Iniciar Sesión</h1>
 
-                    <Parallax.Layer
-                        offset={0}
-                        speed={0.5}
-                        style={styles}
-                        onClick={() => this.refs.parallax.scrollTo(1)}>
-                        <div className="container">
-                            <div className="row">
-                            <div className="col-md-3 col-md-offset-1"></div>
-                                <div className="col-md-6 col-md-offset-3">
-                                    <img src={logo} alt="logo"/>
-                                </div>
-                            <div className="col-md-3 col-md-offset-1"></div>
-                            </div>
-                            <div className="row">
-                            <div className="col-md-3 col-md-offset-1"></div>
-                                <div className="col-md-6 col-md-offset-3">
-                                    TestU is an app that allows you to create courses and tests, to streamline the process of training within the company. TestU allows you to create and customize courses and tests. 
-                                </div>
-                            <div className="col-md-3 col-md-offset-1"></div>
-                            </div>
-                            </div>
-                        
-                    </Parallax.Layer>
-
-                    <Parallax.Layer
-                        offset={1}
-                        speed={-0.1}
-                        style={styles}
-                        onClick={() => this.refs.parallax.scrollTo(2)}>
-                         <div className="container">
-                    <div className="row">
-                        <div className="col-md-6 col-md-offset-3">
-                            <h2>Iniciar sesión</h2>
                             <form className="login">
+
                                 <div className="form-group">
                                     <label htmlFor="exampleInputEmail1">Email address</label>
                                     <input type="email" onChange={this.handleInputChange} value={this.state.username} name="username" className="form-control" id="email-input" placeholder="Email" />
@@ -172,36 +140,31 @@ class Login extends Component {
                             <br />
 
                         </div>
-
+                        <div className="col-md-1">
+                        </div>
                     </div>
-                    <div className="row">
-                        {loggedIn ? (
-                            <div>
+                </div>
+                <div className="row">
+                    {loggedIn ? (
+                        <div>
 
+                        </div>
+
+                    ) : (
+                            <div className={this.state.statusclass}>
+                                {this.state.status}
                             </div>
 
-                        ) : (
-                                <div className={this.state.statusclass}>
-                                    {this.state.status}
-                                </div>
-
-                            )}
-                    </div>
+                        )}
                 </div>
 
 
 
 
 
-        </Parallax.Layer>
-
-                  
-
-                </Parallax>
 
 
-               
-                
+
             </div>
 
 
