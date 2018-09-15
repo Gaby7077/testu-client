@@ -1,11 +1,9 @@
 import React, { Component } from 'react';
-import { Grid, Row, Col, Table, Modal, ProgressBar } from "react-bootstrap";
+import { Grid, Row, Col, Table } from "react-bootstrap";
 import Card from "components/Card/Card.jsx";
 import Button from "components/MaterialButton/MaterialButton.jsx";
-import DeleteButton from "components/DeleteButton/DeleteButton.jsx"
-import { FormInputs } from "components/FormInputs/FormInputs.jsx";
 import UserAPI from "../../api/user.api";
-import { BootstrapTable, TableHeaderColumn } from 'react-bootstrap-table';
+
 
 
 class Material extends Component {
@@ -22,24 +20,31 @@ class Material extends Component {
     }
 
     componentDidMount() {
+       this.buscarDocumentos();
+    }
+
+    //*Funcion para buscar que documentos hay.
+
+    buscarDocumentos(){
         UserAPI.getClass(this.state.empresa)
 
-            .then(response => {
-                console.log(response)
-                this.setState({
-                    materialCurso: response.data
-                })
+        .then(response => {
+            console.log(response)
+            this.setState({
+                materialCurso: response.data
             })
+        })
     }
 
 borrarDocumento(e){
-    let documentoId = e.target.getAttribute("idMaterial")
+    let documentoId = e.target.getAttribute("idmaterial")
     //console.log(documentoId)
     UserAPI.postBorrarDocumento({
         id:documentoId
     })
     .then(response=>{
         console.log(response)
+        this.buscarDocumentos();
     });
 
 }
@@ -91,7 +96,7 @@ borrarDocumento(e){
                                                             {indice}
                                                         </td>
                                                         <td>
-                                                            {respuesta.curso}
+                                                            {respuesta.Curso.curso}
                                                         </td>
                                                         <td>
                                                             {respuesta.documento}
@@ -100,7 +105,7 @@ borrarDocumento(e){
                                                             <Button bsStyle="info" href={respuesta.ubicacion} fill type="submit">Link</Button>
                                                         </td>
                                                         <td>
-                                                            <Button bsStyle="danger" idMaterial={respuesta.id} onClick={(e) => this.borrarDocumento(e)}fill type="submit">Borrar Material</Button>
+                                                            <Button bsStyle="danger" idmaterial={respuesta.id} onClick={(e) => this.borrarDocumento(e)}fill type="submit">Borrar Material</Button>
                                                         </td>
                                                     </tr>
                                                 )

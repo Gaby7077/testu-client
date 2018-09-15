@@ -15,7 +15,7 @@ const dashboardSuperRoutes = [
         icon: "pe-7s-note2",
         component: Signup
     },
-    ,
+    
     { redirect: true, path: "/", to: "/login", name: "Cursos" }
 ];
 

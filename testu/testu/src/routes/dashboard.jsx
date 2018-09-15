@@ -29,7 +29,7 @@ const dashboardRoutes = [
     icon: "pe-7s-note2",
     component: Examenes
   },
- ,
+ 
   { redirect: true, path: "/", to: "/login", name: "Cursos" }
 ];
 
