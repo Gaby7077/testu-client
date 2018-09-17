@@ -3,9 +3,6 @@ import {
   Grid,
   Row,
   Col,
-  FormGroup,
-  ControlLabel,
-  FormControl,
   ProgressBar
 } from "react-bootstrap";
 
