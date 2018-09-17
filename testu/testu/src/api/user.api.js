@@ -63,7 +63,29 @@ export default {
     //Route to add an answer
     postAgregarRespuesta:function(data){
         return axios.post(process.env.REACT_APP_API_URL + "/api/respuestas",data)
+    },
+    //Route to update examen
+    putExamen:function(data){
+        return axios.put(process.env.REACT_APP_API_URL + "/api/examen",data)
+    },
+    //Find the value of the answer
+    getRespuesta:function(id){
+        return axios.get(process.env.REACT_APP_API_URL + "/api/respuesta/"+id)
+    },
+    //Route to post the answer to the questions
+    postRespuesta:function(data){
+        return axios.post(process.env.REACT_APP_API_URL + "/api/contestado",data)
+    },
+    //Route to get users of empresa
+    getUsuarios:function(empresa){
+        return axios.get(process.env.REACT_APP_API_URL + "/api/numusuarios/"+empresa)
+    },
+    //Route to get all Usuario y Cursos
+    getUsuarioCurso:function(curso){
+        return axios.get(process.env.REACT_APP_API_URL + "/api/contestados/"+curso)
+    },
+    getUsuarioCursoBuenas:function(usuario,curso){
+        return axios.get(process.env.REACT_APP_API_URL + "/api/contestadostrue/"+usuario+"/"+curso)
     }
-
 
   };

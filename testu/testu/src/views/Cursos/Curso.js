@@ -1,11 +1,11 @@
 import React, { Component } from 'react';
-import { Grid, Row, Col, Table, Modal, ProgressBar } from "react-bootstrap";
+import { Grid, Row, Col, Table, Modal, ProgressBar, ControlLabel, FormControl } from "react-bootstrap";
 import Card from "components/Card/Card.jsx";
 import Button from "components/MaterialButton/MaterialButton.jsx";
 import { FormInputs } from "components/FormInputs/FormInputs.jsx";
 import UserAPI from "../../api/user.api";
 import { storage } from "../../firebase";
-import userApi from '../../api/user.api';
+
 
 class Curso extends Component {
 
@@ -16,16 +16,18 @@ class Curso extends Component {
         this.handleClose = this.handleClose.bind(this);
         this.handleShowMaterial = this.handleShowMaterial.bind(this);
         this.handleCloseMaterial = this.handleCloseMaterial.bind(this);
-        this.handleShowPregunta = this.handleShowPregunta.bind(this);
-        this.handleClosePregunta = this.handleClosePregunta.bind(this)
+        this.handleShowExamen = this.handleShowExamen.bind(this);
+        this.handleCloseExamen = this.handleCloseExamen.bind(this)
         this.handleModalSubmit = this.handleModalSubmit.bind(this);
         this.agregarMaterial = this.agregarMaterial.bind(this);
+        this.numerodePreguntas=this.numerodePreguntas.bind(this);
+        this.modificarExamen=this.modificarExamen.bind(this);
         
 
         this.state = {
             show: false,
             showMaterial: false,
-            showPregunta:false,
+            showExamen:false,
             empresa: localStorage.getItem("empresa"),
             cursos: [],
             cursoNuevo: "",
@@ -35,7 +37,10 @@ class Curso extends Component {
             btndis: true,
             upLoadValue: 0,
             documentoUrl: "",
-            hayMaterial: ""
+            hayMaterial: "",
+            numeroPreguntas:0,
+            maxPreguntas:0,
+            btnExamen:true,
         };
     }
 
@@ -88,20 +93,23 @@ class Curso extends Component {
         //console.log(prueba);
     }
 
-     //*Funcion para cerrar el modal de agregar material
-     handleClosePregunta() {
-        this.setState({ showPregunta: false });
+     //*Funcion para cerrar el modal de agregar Examen
+     handleCloseExamen() {
+        this.setState({ showExamen: false });
     }
 
-    //*Funcion para abrir el modal de agregar material
-    handleShowPregunta(e) {
+    //*Funcion para abrir el modal de agregar Examen
+    handleShowExamen(e) {
         let prueba = e.target.getAttribute("cursoid")
+        let totalpreguntas=e.target.getAttribute("numpreguntas")
         this.setState({
-            showPregunta: true,
+            showExamen: true,
             cursoid: prueba,
+            maxPreguntas:totalpreguntas
         });
         //console.log(prueba);
     }
+
     //*Funcion para agregar curso
     handleModalSubmit() {
         UserAPI.postCurso({
@@ -151,9 +159,38 @@ class Curso extends Component {
         }
 
     };
-    
 
-      //Funcion del Modal para agregar material
+    //Crea las opciones del numero de preguntas incluir en el examen
+    numerodePreguntas(){
+        let items=[];
+        for (let i=1;i<=this.state.maxPreguntas;i++){
+            items.push(<option key={i} value={i}>{i}</option>)
+        }
+        return items;
+    }
+
+    //InputChange del Modal Examen
+    handleInputChangeExamen = event => {
+        const { name, value } = event.target;
+        this.setState({
+            [name]: value,
+            btnExamen:false
+        });
+    };
+
+    modificarExamen(){
+        UserAPI.putExamen({
+            CursoId:this.state.cursoid,
+            Numpregunta:this.state.numeroPreguntas
+        })
+        .then(response=>{
+            console.log(response) 
+            this.handleCloseExamen(); 
+        })
+    }
+
+
+        //Funcion del Modal para agregar material
     agregarMaterial = e => {
         e.preventDefault();
         if (this.state.documento) {
@@ -181,7 +218,7 @@ class Curso extends Component {
                         this.setState({
                             documentoUrl: url,
                         })
-                        userApi.postUpload({
+                        UserAPI.postUpload({
                             CursoId: this.state.cursoid,
                             ubicacion: this.state.documentoUrl,
                             documento: this.state.material,
@@ -197,14 +234,9 @@ class Curso extends Component {
                                     upLoadValue: 0
                                 })
                                 this.handleCloseMaterial();
+                                this.obtenerCursos();
 
                             })
-
-
-
-
-
-
                     })
                 }
             )
@@ -236,13 +268,13 @@ class Curso extends Component {
                                                     Cursos
                                                 </th>
                                                 <th>
-                                                    Contiene Material
+                                                    # Documentos
                                                 </th>
                                                 <th>
                                                     Agregar Material
                                                 </th>                        
                                                 <th>
-                                                    Agregar Preguntas
+                                                    # Preguntas
                                                 </th>
                                                 <th>
                                                     Crear Examen
@@ -255,11 +287,9 @@ class Curso extends Component {
                                         <tbody>
                                             {this.state.cursos.map((respuesta, index) => {
                                                 let indice = index + 1;
-                                                let material;
-                                                if(respuesta.Clases.length>0){
-                                                    material="Si"
-                                                }else{
-                                                    material="No"                                                }
+                                                let material=respuesta.Clases.length;
+                                                let preguntas=respuesta.preguntas.length;
+                                               
                                             
 
                                                 return (
@@ -278,10 +308,10 @@ class Curso extends Component {
                                                             <Button bsStyle="info" cursoid={respuesta.id} fill type="submit" onClick={(e) => this.handleShowMaterial(e)}>Agregar Material</Button>
                                                         </td>
                                                         <td>
-                                                            <Button bsStyle="info" fill type="submit" onClick={(e)=>this.handleShowPregunta(e)}>Agregar Pregunta</Button>
+                                                            {preguntas}
                                                         </td>
                                                         <td>
-                                                        <Button bsStyle="info" fill type="submit">Crear Examen</Button>
+                                                        <Button bsStyle="info" fill type="submit" cursoid={respuesta.id} numpreguntas={preguntas} onClick={(e)=>this.handleShowExamen(e)}>Configurar Examen</Button>
                                                         </td>
                                                         <td>
                                                             <Button bsStyle="danger" id={respuesta.id} fill type="submit" onClick={(e) => this.borrarCurso(e)}>Borrar Curso</Button>
@@ -366,30 +396,24 @@ class Curso extends Component {
                     </Modal.Footer>
                 </Modal>
 
-                {/*This is the modal for adding pregunta*/}
-                <Modal show={this.state.showPregunta} onHide={this.handleClosePregunta}>
+                {/*This is the modal for adding examen*/}
+                <Modal show={this.state.showExamen} onHide={this.handleCloseExamen}>
                     <Modal.Header closeButton>
-                        <Modal.Title>Agregar Pregunta</Modal.Title>
+                        <Modal.Title>Configurar Examen</Modal.Title>
                     </Modal.Header>
 
                     <Modal.Body>
-                        <FormInputs
-                            ncols={["col-md-12"]}
-                            proprieties={[
-                                {
-                                    label: "Pregunta",
-                                    type: "text",
-                                    bsClass: "form-control",
-                                    name: "preguntaNueva",
-                                    onChange: this.handleInputChange
-                                }
-                            ]}
-                        />
+                     <ControlLabel>Numero de Preguntas a Incluir</ControlLabel>
+                     <FormControl name="numeroPreguntas" onChange={this.handleInputChangeExamen} componentClass="select" placeholder="select">
+                     <option>Selecciona</option>
+                     {this.numerodePreguntas()}
+
+                     </FormControl>
                     </Modal.Body>
 
                     <Modal.Footer>
-                        <Button onClick={this.handleClosePregunta}>Close</Button>
-                        <Button bsStyle="primary" onClick={this.handleModalSubmitPregunta}>Agregar Pregunta</Button>
+                        <Button onClick={this.handleCloseExamen}>Close</Button>
+                        <Button bsStyle="primary" disabled={this.state.btnExamen} onClick={this.modificarExamen}>Configurar Examen</Button>
                     </Modal.Footer>
                 </Modal>
 

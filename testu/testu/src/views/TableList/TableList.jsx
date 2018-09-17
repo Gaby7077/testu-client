@@ -1,83 +1,104 @@
-import React, { Component } from "react";
+import React, { Component } from 'react';
 import { Grid, Row, Col, Table } from "react-bootstrap";
-
 import Card from "components/Card/Card.jsx";
-import { thArray, tdArray } from "variables/Variables.jsx";
+import Button from "components/MaterialButton/MaterialButton.jsx";
+import UserAPI from "../../api/user.api";
 
 class TableList extends Component {
-  render() {
-    return (
-      <div className="content">
-        <Grid fluid>
-          <Row>
-            <Col md={12}>
-              <Card
-                title="Striped Table with Hover"
-                category="Here is a subtitle for this table"
-                ctTableFullWidth
-                ctTableResponsive
-                content={
-                  <Table striped hover>
-                    <thead>
-                      <tr>
-                        {thArray.map((prop, key) => {
-                          return <th key={key}>{prop}</th>;
-                        })}
-                      </tr>
-                    </thead>
-                    <tbody>
-                      {tdArray.map((prop, key) => {
-                        return (
-                          <tr key={key}>
-                            {prop.map((prop, key) => {
-                              return <td key={key}>{prop}</td>;
-                            })}
-                          </tr>
-                        );
-                      })}
-                    </tbody>
-                  </Table>
-                }
-              />
-            </Col>
+  constructor(props, context) {
+    super(props, context);
 
-            <Col md={12}>
-              <Card
-                plain
-                title="Striped Table with Hover"
-                category="Here is a subtitle for this table"
-                ctTableFullWidth
-                ctTableResponsive
-                content={
-                  <Table hover>
-                    <thead>
-                      <tr>
-                        {thArray.map((prop, key) => {
-                          return <th key={key}>{prop}</th>;
-                        })}
-                      </tr>
-                    </thead>
-                    <tbody>
-                      {tdArray.map((prop, key) => {
-                        return (
-                          <tr key={key}>
-                            {prop.map((prop, key) => {
-                              return <td key={key}>{prop}</td>;
-                            })}
-                          </tr>
-                        );
-                      })}
-                    </tbody>
-                  </Table>
-                }
-              />
-            
-            </Col>
-          </Row>
-        </Grid>
-      </div>
-    );
-  }
+
+    this.state = {
+        materialCurso: [],
+        empresa:localStorage.getItem("empresa"),
+    };
+
+}
+
+componentDidMount() {
+   this.buscarDocumentos();
+}
+
+//*Funcion para buscar que documentos hay.
+
+buscarDocumentos(){
+    UserAPI.getClass(this.state.empresa)
+
+    .then(response => {
+        console.log(response)
+        this.setState({
+            materialCurso: response.data
+        })
+    })
+}
+
+render() {
+    return (
+        <div className="content">
+            <Grid fluid>
+                <Row>
+                    <Col md={12}>
+                        <Card
+                            title="Material de Cursos"
+                            ctTableFullWidth
+                            ctTableResponsive
+                            content={
+                               <Table>
+                                   <thead>
+                                        <tr>
+                                            <th>
+                                                Id
+                                            </th>
+                                            <th>
+                                                Cursos
+                                            </th>
+                                            <th>
+                                                Nombre Documento
+                                            </th>
+                                            <th>
+                                                Ver Material
+                                            </th>
+                                            
+                                        </tr>
+                                    </thead>
+                                    <tbody>
+                                        {this.state.materialCurso.map((respuesta, index) => {
+                                            let indice = index + 1;
+                                            
+                                            return (
+
+                                                <tr key={respuesta.id}>
+                                                    <td>
+                                                        {indice}
+                                                    </td>
+                                                    <td>
+                                                        {respuesta.Curso.curso}
+                                                    </td>
+                                                    <td>
+                                                        {respuesta.documento}
+                                                    </td>
+                                                    <td>
+                                                        <Button bsStyle="info" href={respuesta.ubicacion} fill type="submit">Link</Button>
+                                                    </td>
+
+                                                </tr>
+                                            )
+                                        })}
+                                    </tbody>
+                               </Table>
+
+
+                        }
+                    />
+
+                    </Col>
+                </Row>
+            </Grid>
+
+        </div>
+    )
+}
 }
 
 export default TableList;

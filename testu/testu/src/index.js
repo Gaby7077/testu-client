@@ -3,7 +3,7 @@ import ReactDOM from "react-dom";
 import Login from "views/Login"
 import decode from "jwt-decode"
 
-import { BrowserRouter as Router, HashRouter, Route, Switch, Link,Redirect } from "react-router-dom";
+import { BrowserRouter as Router, HashRouter, Route, Switch,Redirect } from "react-router-dom";
 
 import indexRoutes from "routes/index.jsx";
 
