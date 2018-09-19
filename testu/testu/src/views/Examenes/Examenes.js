@@ -1,5 +1,5 @@
 import React, { Component } from 'react';
-import { Grid, Row, Col, FormGroup, FormControl, ControlLabel} from "react-bootstrap";
+import { Grid, Row, Col, FormGroup, FormControl, ControlLabel } from "react-bootstrap";
 import Card from "components/Card/Card.jsx";
 import Button from "components/MaterialButton/MaterialButton.jsx";
 import UserAPI from "../../api/user.api";
@@ -28,7 +28,11 @@ class Examenes extends Component {
       respuestaid: "",
       GridExamen: "hideDiv",
       preguntaid: "",
-      UserId:localStorage.getItem("user")
+      UserId: localStorage.getItem("user"),
+      totalPreguntas: "",
+      goodAnswer: [],
+      calificacion: "",
+      mensaje:""
     };
   }
 
@@ -50,6 +54,8 @@ class Examenes extends Component {
       })
   }
 
+
+
   //*Obtiene el id del curso
   handleChange(event) {
     this.setState({
@@ -59,15 +65,58 @@ class Examenes extends Component {
     })
   }
 
-  //*Para ver las preguntas
+  //*Para ver las preguntas y poner el userID en el Examen
 
   handleSubmit(event) {
     event.preventDefault();
     this.setState({
+      mensaje:""
+    })
+
+    UserAPI.getExamen(this.state.UserId,this.state.value)
+    .then(response=>{
+      
+      console.log(response)
+      if(!response.data){
+        this.presentarPreguntas()
+      }
+      else{
+        this.setState({
+          mensaje:"Este examen ya fue tomado"
+        })
+      }
+    })
+    
+    
+  
+  }
+
+  presentarPreguntas(){
+    this.setState({
       numPregunta: 0
     })
-    this.obtenerPreguntas();
+    UserAPI.postExamen({
+      CursoId: this.state.value,
+      UserId: this.state.UserId
+    })
+      .then(response => {
+        //console.log(response)
+        this.obtenerPreguntas();
+        this.totalPreguntas();
+      })
   }
+
+  totalPreguntas() {
+    UserAPI.getNumPreguntas(this.state.value)
+      .then(response => {
+        //console.log(response)
+        this.setState({
+          totalPreguntas: response.data.count
+        })
+      })
+  }
+
+
 
   //*Funcion para obtener las preguntas y ponerlas en desorden
   obtenerPreguntas() {
@@ -93,9 +142,11 @@ class Examenes extends Component {
 
   MostrarPregunta() {
     let pregunta;
+    
     if (this.state.preguntas.length > 0) {
       if (this.state.numPregunta === this.state.preguntas.length) {
         pregunta = "Gracias por Contestar el Examen"
+       
       }
       else {
         //console.log(this.state.numPregunta)
@@ -103,6 +154,9 @@ class Examenes extends Component {
         pregunta = this.state.preguntas[this.state.numPregunta].pregunta
         //console.log(this.state.preguntas[this.state.numPregunta].id)
 
+      }
+      if(this.state.mensaje==="Este examen ya fue tomado"){
+        pregunta=""
       }
 
 
@@ -130,7 +184,7 @@ class Examenes extends Component {
         for (let i = 0; i < respuestas.length; i++) {
           //console.log(respuestas[i].Respuesta)
           cuestionario.push(
-            <Button key={respuestas[i].id} idrespuesta={respuestas[i].id} bsStyle="primary" fill onClick={(e)=>{this.responderPregunta(e)}}>{respuestas[i].Respuesta}</Button>
+            <Button key={respuestas[i].id} idrespuesta={respuestas[i].id} bsStyle="primary" fill onClick={(e) => { this.responderPregunta(e) }}>{respuestas[i].Respuesta}</Button>
           )
           cuestionario.push(' ')
         }
@@ -143,19 +197,48 @@ class Examenes extends Component {
     this.setState({
       numPregunta: this.state.numPregunta + 1
     })
-    let respuestaid=e.target.getAttribute("idrespuesta");
+    let respuestaid = e.target.getAttribute("idrespuesta");
     console.log("El id de la respuesta es " + respuestaid)
     UserAPI.getRespuesta(respuestaid)
-    .then(response=>{
-      console.log(response.data.Correcta)
-      UserAPI.postRespuesta({
-        respuesta:response.data.Correcta,
-        RespuestumId:respuestaid,
-        UserId:this.state.UserId,
-        CursoId:this.state.value
-      }).then(response=>{
-        console.log(response)
+      .then(response => {
+        console.log(response.data.Correcta)
+        UserAPI.postRespuesta({
+          respuesta: response.data.Correcta,
+          RespuestumId: respuestaid,
+          UserId: this.state.UserId,
+          CursoId: this.state.value
+        }).then(response => {
+          //console.log(response)
+          if (response.data.respuesta) {
+            let good = this.state.goodAnswer.concat(response.data.respuesta)
+            let score = Math.round((good.length) / (this.state.totalPreguntas) * 100)
+            console.log("Numero de buenas " + good.length);
+            console.log("Total preguntas " + this.state.totalPreguntas)
+            this.setState({
+              goodAnswer: good,
+              calificacion: score,
+            })
+            this.subirCalificacion(score)
+          }
+        })
       })
+  }
+
+  subirCalificacion(score) {
+    UserAPI.putCalificacion({
+      CursoId: this.state.value,
+      UserId: this.state.UserId,
+      Calificacion: score
+    }).then(response => {
+      console.log(response)
+    })
+  }
+
+  cursoTomado(){
+    UserAPI.getExamen(this.state.UserId)
+    .then(response=>{
+      console.log(response)
+      
     })
   }
 
@@ -219,6 +302,7 @@ class Examenes extends Component {
 
                   content={
                     <div>
+                      <h2>{this.state.mensaje}</h2>
                       <h2>{this.MostrarPregunta()}</h2>
                       {this.MostrarRespuesta()}
 

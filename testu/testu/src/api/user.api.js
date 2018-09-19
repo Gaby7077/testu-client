@@ -91,6 +91,25 @@ export default {
     },
     getUsuarioCursoBuenas:function(usuario,curso){
         return axios.get(process.env.REACT_APP_API_URL + "/api/contestadostrue/"+usuario+"/"+curso)
+    },
+    //Route to create a user to an exam
+    postExamen:function(data){
+        return axios.post(process.env.REACT_APP_API_URL + "/api/examen", data)
+    },
+    //Sacar el total de preguntas
+    getNumPreguntas:function(curso){
+        return axios.get(process.env.REACT_APP_API_URL + "/api/numpregunta/"+curso)
+    },
+    //Subir calificacion
+    putCalificacion:function(data){
+        return axios.put(process.env.REACT_APP_API_URL + "/api/calificacion",data)
+    },
+    //Revisar si ya tomo el examane
+    getExamen:function(user,curso){
+        return axios.get(process.env.REACT_APP_API_URL + "/api/tomados/"+user+"/"+curso)
+    },
+    //Obtener califacion
+    getCalificaciones:function(data){
+        return axios.get(process.env.REACT_APP_API_URL + "/api/examen",data)
     }
-
   };
