@@ -39,13 +39,24 @@ class UserProfile extends Component {
           /* window.location.replace("/");*/
         }
         else {
+          UserAPI.getUser_dataOne(response.data.authData.user.id)
+          .then(usuarioOne=>{
+            console.log(usuarioOne);
+            this.setState({
+
+              FirstName: usuarioOne.data.nombre,
+              LastName: usuarioOne.data.apellido,
+              Picture: usuarioOne.data.picture,
+            })
+            
+          })
+
           this.setState({
             email: response.data.authData.user.email,
-            FirstName: response.data.authData.user.FirstName,
-            LastName: response.data.authData.user.LastName,
             empresa: response.data.authData.user.empresa,
-            Picture: response.data.authData.user.Picture,
+            
           })
+        
           //console.log(response.data.authData.user.email)
           //*Es lo que viene en el token
           //console.log(response)
