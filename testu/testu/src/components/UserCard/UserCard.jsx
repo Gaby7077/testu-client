@@ -1,11 +1,12 @@
 import React, { Component } from "react";
+import backHeader from "assets/img/backHeader.jpg";
 
 export class UserCard extends Component {
   render() {
     return (
       <div className="card card-user">
         <div className="image">
-          <img src={this.props.bgImage} alt="..." />
+          <img src={backHeader} alt="..." />  
         </div>
         <div className="content">
           <div className="author">
