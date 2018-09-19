@@ -1,7 +1,7 @@
 import React, { Component } from 'react';
 import "./Login.css";
 import UserAPI from "../../api/user.api";
-import logo from "../../assets/img/testublanco.png";
+import logo from "../../assets/img/testu1.png";
 import Particles from "react-particles-js";
 import Background from "components/Background/Background.jsx"
 import { Grid, Row, Col, Table, Modal, ProgressBar } from "react-bootstrap";
