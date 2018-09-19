@@ -1,11 +1,10 @@
 import React, { Component } from 'react';
 import "./Login.css";
 import UserAPI from "../../api/user.api";
-import logo from "../../assets/img/logotestu.png";
+import logo from "../../assets/img/testublanco.png";
 import Particles from "react-particles-js";
 import Background from "components/Background/Background.jsx"
-
-
+import { Grid, Row, Col, Table, Modal, ProgressBar } from "react-bootstrap";
 class Login extends Component {
     state = {
         username: "",
@@ -118,6 +117,9 @@ class Login extends Component {
                <Background/>
 
                 <div className="row justify-content-center">
+                    <img src={logo} className="panel2"/>
+                </div>
+                <div className="row justify-content-center">
                     <div className="panel">
                         <div className="col-md-1">
                         </div>
@@ -144,6 +146,11 @@ class Login extends Component {
                         </div>
                     </div>
                 </div>
+
+
+
+
+                
                 <div className="row">
                     {loggedIn ? (
                         <div>

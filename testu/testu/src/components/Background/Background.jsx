@@ -13,7 +13,7 @@ class Background extends Component {
         return (
             <div className="fondo particle">
 
-                <div className="container">
+                <div >
                     <Particles
                         params={{
                             particles: {
@@ -21,7 +21,7 @@ class Background extends Component {
                                     value: 150,
                                     density: {
                                         enable: true,
-                                        value_area: 500
+                                        value_area: 800
                                     }
                                 }
                             }
@@ -30,7 +30,7 @@ class Background extends Component {
                     />
 
                 </div>
-       
+               
 
 
 

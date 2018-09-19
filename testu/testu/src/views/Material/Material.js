@@ -54,7 +54,7 @@ borrarDocumento(e){
             <div className="content">
                 <Grid fluid>
                     <Row>
-                        <Col md={12}>
+                        <Col md={12} >
                             <Card
                                 title="Material de Cursos"
                                 ctTableFullWidth
