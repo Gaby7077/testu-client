@@ -1,6 +1,5 @@
 import UserProfile from "views/UserProfile/UserProfile";
 import TableList from "views/TableList/TableList";
-import Calificaciones from "views/Calificaciones/Calificaciones";
 import Examenes from "views/Examenes/Examenes";
 
 
@@ -18,18 +17,12 @@ const dashboardRoutes = [
     component: TableList
   },
   {
-    path: "/Calificaciones",
-    name: "Calificaciones",
-    icon: "pe-7s-check",
-    component: Calificaciones
-  },
-  {
     path: "/Examenes",
     name: "Examenes",
     icon: "pe-7s-note2",
     component: Examenes
   },
- ,
+ 
   { redirect: true, path: "/", to: "/login", name: "Cursos" }
 ];
 

@@ -1,125 +1,124 @@
 import React, { Component } from 'react';
 import { Grid, Row, Col, Table } from "react-bootstrap";
 import Card from "components/Card/Card.jsx";
-import Button from "components/MaterialButton/MaterialButton.jsx";
 import UserAPI from "../../api/user.api";
+import Button from "components/MaterialButton/MaterialButton.jsx";
 
 
 
-class Material extends Component {
+class Calificaciones extends Component {
 
     constructor(props, context) {
         super(props, context);
 
+        
 
         this.state = {
-            materialCurso: [],
-            empresa:localStorage.getItem("empresa"),
-        };
+           empresa: localStorage.getItem("empresa"),
+           respuesta:[]
+            
 
+        };
     }
 
     componentDidMount() {
-       this.buscarDocumentos();
+        this.obtenerCalificaciones();
+        
     }
 
-    //*Funcion para buscar que documentos hay.
-
-    buscarDocumentos(){
-        UserAPI.getClass(this.state.empresa)
-
-        .then(response => {
-            console.log(response)
+    //*Funcion para obtener los datos nuevos y ponerlos en el render
+    obtenerCalificaciones() {
+        UserAPI.getCalificaciones()
+        .then(response=>{
+            //console.log(response)
             this.setState({
-                materialCurso: response.data
+                respuesta:response.data
             })
         })
     }
 
-borrarDocumento(e){
-    let documentoId = e.target.getAttribute("idmaterial")
-    //console.log(documentoId)
-    UserAPI.postBorrarDocumento({
-        id:documentoId
-    })
-    .then(response=>{
-        console.log(response)
-        this.buscarDocumentos();
-    });
-
-}
-
-
-
+    
 
 
 
     render() {
+    
         return (
             <div className="content">
                 <Grid fluid>
                     <Row>
-                        <Col md={12} >
+                        <Col md={12}>
+                        
                             <Card
-                                title="Material de Cursos"
+                                title="Calificaciones"
                                 ctTableFullWidth
                                 ctTableResponsive
                                 content={
-                                   <Table>
-                                       <thead>
+                                    <Table striped hover>
+                                        <thead>
                                             <tr>
                                                 <th>
                                                     Id
                                                 </th>
                                                 <th>
-                                                    Cursos
+                                                    Usuario
                                                 </th>
                                                 <th>
-                                                    Nombre Documento
+                                                    Curso
                                                 </th>
                                                 <th>
-                                                    Ver Material
+                                                    Calificacion
                                                 </th>
-                                                <th>
-                                                    Borrar Material
-                                                </th>
+
                                             </tr>
                                         </thead>
                                         <tbody>
-                                            {this.state.materialCurso.map((respuesta, index) => {
+                                            {this.state.respuesta.map((res, index) => {
+                                                console.log("entro")
+                                                console.log(res)
                                                 let indice = index + 1;
+                                                let porcentaje
+                                                if (res.Calificacion){
+                                                    porcentaje=res.Calificacion
+                                                }
+                                                else{
+                                                    porcentaje="Examen no tomado"
+                                                }
                                                 
                                                 return (
 
-                                                    <tr key={respuesta.id}>
+                                                    <tr key={res.id}>
                                                         <td>
                                                             {indice}
                                                         </td>
                                                         <td>
-                                                            {respuesta.Curso.curso}
+                                                            {res.User.email}
+
                                                         </td>
                                                         <td>
-                                                            {respuesta.documento}
+                                                            {res.Curso.curso}
+
                                                         </td>
                                                         <td>
-                                                            <Button bsStyle="info" href={respuesta.ubicacion} fill type="submit">Link</Button>
+                                                            {porcentaje}
+
                                                         </td>
-                                                        <td>
-                                                            <Button bsStyle="danger" idmaterial={respuesta.id} onClick={(e) => this.borrarDocumento(e)}fill type="submit">Borrar Material</Button>
-                                                        </td>
+
                                                     </tr>
                                                 )
                                             })}
                                         </tbody>
-                                   </Table>
 
+                                    </Table>
 
-                            }
-                        />
+                                }
+                            />
 
                         </Col>
                     </Row>
                 </Grid>
+
+
 
             </div>
         )
@@ -127,4 +126,4 @@ borrarDocumento(e){
 
 }
 
-export default Material;
+export default Calificaciones;
