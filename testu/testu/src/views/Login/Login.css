@@ -1,10 +1,14 @@
 
-.primerlayer {
-    background-image: url("../../assets/img/back2.png");
+@import url('https://fonts.googleapis.com/css?family=Abril+Fatface%7CAllerta+Stencil%7CAmatic+SC:400,700%7CAnton%7CPaytone+One%7CRajdhani:700%7CRoboto%7CShadows+Into+Light');
+
+
+
+.fondo {
+    background-image: url("../../assets/img/fondogris2.png");
 }
 
 .logo {
-    background-image: url("../../assets/img/logotestu.png")
+    background-image: url("../../assets/img/testu1.png")
 }
 
 .textbox {
@@ -13,4 +17,39 @@
     width: 50%;
     color: purple;
 
+}
+
+.panel {
+   display: block;
+    /*font-family: 'Source Sans Pro';*/
+   /*font-size: 1.3em;*/
+    position: absolute;
+    z-index: 10;
+    width: 300px;
+    height: 360px;
+    background: #eee;
+    top: 30%;
+   
+   
+   /* margin: -110px 0 100px -110px;*/
+  
+    border-radius: 4px;
+    box-sizing: border-box;
+    /*z-index: 100;*/
+}
+
+.panel2 {
+    display: block;
+     position: absolute;
+     z-index: 15;
+     top: 3%;
+height: 8vw;
+width: auto;
+ }
+ 
+
+
+
+.prueba{
+    font-size: 20px;
 }
