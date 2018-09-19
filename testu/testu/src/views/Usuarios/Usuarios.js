@@ -21,6 +21,13 @@ class Usuarios extends Component {
 
     handleFormSubmit = event => {
         event.preventDefault();
+
+        this.setState({
+
+            username: "",
+            password: "",
+            empresa: "",
+          })
         UserAPI.postSignup(
             {
                 email: this.state.username,
@@ -30,6 +37,8 @@ class Usuarios extends Component {
             .then(response => {
                 console.log(response)
                 //window.location.replace("/login")
+
+               
             })
     }
 

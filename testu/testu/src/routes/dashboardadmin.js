@@ -17,31 +17,31 @@ const dashboardAdminRoutes = [
   {
     path:"/usuarios",
     name: "Crear Usuarios",
-    icon:"pe-7s-albums",
+    icon:"pe-7s-add-user",
     component: Usuarios
   },
   {
     path: "/cursos",
     name: "Cursos",
-    icon: "pe-7s-albums",
+    icon: "pe-7s-display2",
     component: Curso
   },
   {
     path:"/material",
     name: "Material",
-    icon: "pe-7s-albums",
+    icon: "pe-7s-portfolio",
     component: Material
   },
   {
     path:"/pregunta",
     name: "Crear Preguntas",
-    icon: "pe-7s-albums",
+    icon: "pe-7s-note",
     component: Pregunta
   },
   {
     path:"/calificaciones",
     name: "Calificaciones",
-    icon:"pe-7s-album",
+    icon:"pe-7s-graph2",
     component: Calificaciones
   },
  

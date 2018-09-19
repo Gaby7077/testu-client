@@ -2,7 +2,7 @@ import axios from "axios";
 
 export default {
 
-    
+
     postLogin:function(login){
         return axios.post(process.env.REACT_APP_API_URL + "/api/login",login);
 
@@ -14,6 +14,11 @@ export default {
 
     getLogout:function(){
         return axios.get(process.env.REACT_APP_API_URL + "/logout")
+    },
+
+    getUser_dataOne:function(id){
+        return axios.get(process.env.REACT_APP_API_URL + "/api/UserOne/"+id);
+
     },
 
     getUser_data:function(token){
@@ -29,7 +34,7 @@ export default {
         return axios.get(process.env.REACT_APP_API_URL + "/api/documentos/" + empresa)
     },
       //Route for updating profile
-      putUpdate: function (user) {
+    putUpdate: function (user) {
         return axios.put(process.env.REACT_APP_API_URL + "/api/update",user)
     },
     //Route to get all the course by empresa
