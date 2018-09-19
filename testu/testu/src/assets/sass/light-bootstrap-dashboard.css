@@ -464,13 +464,13 @@ body > .navbar-collapse[data-color="purple"]:after {
   opacity: 0.8;
   filter: alpha(opacity=80);
   padding: 8px 16px;
-  border-color: #4e4848;
+  border-color: #888888;
   color: #FFFFFF; }
   .btn:hover, .btn:focus, .btn:active, .btn.active,
   .open > .btn.dropdown-toggle {
     background-color: transparent;
     color: #777777;
-    border-color: #777777; }
+    border-color: #4e4848; }
   .btn.disabled, .btn.disabled:hover, .btn.disabled:focus, .btn.disabled.focus, .btn.disabled:active, .btn.disabled.active, .btn:disabled, .btn:disabled:hover, .btn:disabled:focus, .btn:disabled.focus, .btn:disabled:active, .btn:disabled.active, .btn[disabled], .btn[disabled]:hover, .btn[disabled]:focus, .btn[disabled].focus, .btn[disabled]:active, .btn[disabled].active,
   fieldset[disabled] .btn,
   fieldset[disabled] .btn:hover,
@@ -506,13 +506,13 @@ body > .navbar-collapse[data-color="purple"]:after {
     padding: 8px; }
 
 .btn-primary {
-  border-color: #3472F7;
-  color: #3472F7; }
+  border-color: #4e4848;
+  color: #FFFFFF; }
   .btn-primary:hover, .btn-primary:focus, .btn-primary:active, .btn-primary.active,
   .open > .btn-primary.dropdown-toggle {
     background-color: transparent;
-    color: #1D62F0;
-    border-color: #1D62F0; }
+    color: #777777;
+    border-color: #4e4848; }
   .btn-primary.disabled, .btn-primary.disabled:hover, .btn-primary.disabled:focus, .btn-primary.disabled.focus, .btn-primary.disabled:active, .btn-primary.disabled.active, .btn-primary:disabled, .btn-primary:disabled:hover, .btn-primary:disabled:focus, .btn-primary:disabled.focus, .btn-primary:disabled:active, .btn-primary:disabled.active, .btn-primary[disabled], .btn-primary[disabled]:hover, .btn-primary[disabled]:focus, .btn-primary[disabled].focus, .btn-primary[disabled]:active, .btn-primary[disabled].active,
   fieldset[disabled] .btn-primary,
   fieldset[disabled] .btn-primary:hover,
