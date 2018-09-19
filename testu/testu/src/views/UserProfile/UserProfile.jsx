@@ -40,29 +40,29 @@ class UserProfile extends Component {
         }
         else {
           UserAPI.getUser_dataOne(response.data.authData.user.id)
-            .then(usuarioOne => {
-              console.log(usuarioOne);
-              this.setState({
+          .then(usuarioOne=>{
+            console.log(usuarioOne);
+            this.setState({
 
-                FirstName: usuarioOne.data.nombre,
-                LastName: usuarioOne.data.apellido,
-                Picture: usuarioOne.data.picture,
-              })
-
+              FirstName: usuarioOne.data.nombre,
+              LastName: usuarioOne.data.apellido,
+              Picture: usuarioOne.data.picture,
             })
-          }
+            
+          })
 
           this.setState({
             email: response.data.authData.user.email,
             empresa: response.data.authData.user.empresa,
-
+            
           })
-
+        
           //console.log(response.data.authData.user.email)
           //*Es lo que viene en el token
           //console.log(response)
-        })
         }
+        })
+      }
 
         datosUsuario(){
           UserAPI.getUser_data(localStorage.getItem("token"))
