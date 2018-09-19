@@ -31,28 +31,32 @@ class UserProfile extends Component {
 
 
   componentDidMount() {
+    this.datosUsuario();
+
+  }
+
+  datosUsuario(){
     UserAPI.getUser_data(localStorage.getItem("token"))
-      .then(response => {
-        if (response.data === null) {
-          localStorage.removeItem("token")
-          localStorage.removeItem("role")
-          /* window.location.replace("/");*/
-        }
-        else {
-          this.setState({
-            email: response.data.authData.user.email,
-            FirstName: response.data.authData.user.FirstName,
-            LastName: response.data.authData.user.LastName,
-            empresa: response.data.authData.user.empresa,
-            Picture: response.data.authData.user.Picture,
-          })
-          //console.log(response.data.authData.user.email)
-          //*Es lo que viene en el token
-          //console.log(response)
+    .then(response => {
+      if (response.data === null) {
+        localStorage.removeItem("token")
+        localStorage.removeItem("role")
+        /* window.location.replace("/");*/
+      }
+      else {
+        this.setState({
+          email: response.data.authData.user.email,
+          FirstName: response.data.authData.user.FirstName,
+          LastName: response.data.authData.user.LastName,
+          empresa: response.data.authData.user.empresa,
+          Picture: response.data.authData.user.Picture,
+        })
+        //console.log(response.data.authData.user.email)
+        //*Es lo que viene en el token
+        //console.log(response)
 
-        }
-      })
-
+      }
+    })
   }
 
   handleChange = event => {
@@ -107,6 +111,7 @@ class UserProfile extends Component {
             })
               .then(response => {
                 console.log(response)
+        
               })
 
           })
