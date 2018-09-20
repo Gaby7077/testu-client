@@ -264,10 +264,12 @@ input:focus {
       height: 60px; }
   .sidebar .nav {
     margin-top: 20px; }
+   /* .sidebar .nav li > a se agrego el width que da amplitud a los iconos de seleccionar perfil, administrar usuarios */
     .sidebar .nav li > a {
       color: #FFFFFF;
       margin: 5px 15px;
       opacity: .86;
+      width: 250px;
       border-radius: 4px; }
     .sidebar .nav li:hover > a,
     .sidebar .nav li.open > a,
