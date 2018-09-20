@@ -18,7 +18,7 @@ class Sidebar extends Component {
     super(props);
     this.state = {
       width: window.innerWidth,
-      role:localStorage.getItem("role")
+      role: localStorage.getItem("role")
     };
   }
   activeRoute(routeName) {
@@ -36,7 +36,7 @@ class Sidebar extends Component {
       backgroundImage: "url(" + imagine + ")"
     };
 
-//* En caso de que el usuario sea user
+    //* En caso de que el usuario sea user
     if (this.state.role === "user") {
       return (
         <div
@@ -51,164 +51,160 @@ class Sidebar extends Component {
               href="https://www.creative-tim.com"
               className="simple-text logo-mini"
             >
-              <div className="logo-img">
-                <img src={logo} alt="logo_image" />
-              </div>
+              {/*<div className="logo-img">
+                <img src={logo} alt="logo_image" / >
+                </div>*/}
             </a>
-            <a
-              // href="https://www.creative-tim.com"
-              className="simple-text logo-normal"
-            >
-              TestU
-
+              <a
+                // href="https://www.creative-tim.com"
+                className="simple-text logo-normal"
+              >
+               
+  
           </a>
-          </div>
-          <div className="sidebar-wrapper">
-            <ul className="nav">
-              {this.state.width <= 991 ? <HeaderLinks /> : null}
-              {dashboardRoutes.map((prop, key) => {
-                if (!prop.redirect)
-                  return (
-                    <li
-                      className={
-                        prop.upgrade
-                          ? "active active-pro"
-                          : this.activeRoute(prop.path)
-                      }
-                      key={key}
-                    >
-                      <NavLink
-                        to={prop.path}
-                        className="nav-link"
-                        activeClassName="active"
+      </div>
+            <div className="sidebar-wrapper">
+              <ul className="nav">
+                {this.state.width <= 991 ? <HeaderLinks /> : null}
+                {dashboardRoutes.map((prop, key) => {
+                  if (!prop.redirect)
+                    return (
+                      <li
+                        className={
+                          prop.upgrade
+                            ? "active active-pro"
+                            : this.activeRoute(prop.path)
+                        }
+                        key={key}
                       >
-                        <i className={prop.icon} />
-                        <p>{prop.name}</p>
-                      </NavLink>
-                    </li>
-                  );
-                return null;
-              })}
-            </ul>
+                        <NavLink
+                          to={prop.path}
+                          className="nav-link"
+                          activeClassName="active"
+                        >
+                          <i className={prop.icon} />
+                          <p>{prop.name}</p>
+                        </NavLink>
+                      </li>
+                    );
+                  return null;
+                })}
+              </ul>
+            </div>
           </div>
-        </div>
-      );
-    }
-    //* En caso de que el usuario sea user
+          );
+        }
+        //* En caso de que el usuario sea user
     if (this.state.role === "admin") {
       return (
         <div
-          id="sidebar"
-          className="sidebar"
-          data-color="black"
-          data-image={imagine}
-        >
-          <div className="sidebar-background" style={sidebarBackground} />
-          <div className="logo">
-            <a
-              href="https://www.creative-tim.com"
-              className="simple-text logo-mini"
-            >
-              <div className="logo-img">
-                <img src={logo} alt="logo_image" />
-              </div>
-            </a>
-            <a
-              // href="https://www.creative-tim.com"
-              className="simple-text logo-normal"
-            >
-              TestU
+            id="sidebar"
+            className="sidebar"
+            data-color="black"
+            data-image={imagine}
+          >
+            <div className="sidebar-background" style={sidebarBackground} />
+            <div className="logo">
+              <a
+                href="https://www.creative-tim.com"
+                className="simple-text logo-mini"
+              >
+                
+              </a>
+              <a
+                // href="https://www.creative-tim.com"
+                className="simple-text logo-normal"
+              >
+               
           </a>
-          </div>
-          <div className="sidebar-wrapper">
-            <ul className="nav">
-              {this.state.width <= 991 ? <HeaderLinks /> : null}
-              {dashboardAdminRoutes.map((prop, key) => {
-                if (!prop.redirect)
-                  return (
-                    <li
-                      className={
-                        prop.upgrade
-                          ? "active active-pro"
-                          : this.activeRoute(prop.path)
-                      }
-                      key={key}
-                    >
-                      <NavLink
-                        to={prop.path}
-                        className="nav-link"
-                        activeClassName="active"
+            </div>
+            <div className="sidebar-wrapper">
+              <ul className="nav">
+                {this.state.width <= 991 ? <HeaderLinks /> : null}
+                {dashboardAdminRoutes.map((prop, key) => {
+                  if (!prop.redirect)
+                    return (
+                      <li
+                        className={
+                          prop.upgrade
+                            ? "active active-pro"
+                            : this.activeRoute(prop.path)
+                        }
+                        key={key}
                       >
-                        <i className={prop.icon} />
-                        <p>{prop.name}</p>
-                      </NavLink>
-                    </li>
-                  );
-                return null;
-              })}
-            </ul>
+                        <NavLink
+                          to={prop.path}
+                          className="nav-link"
+                          activeClassName="active"
+                        >
+                          <i className={prop.icon} />
+                          <p>{prop.name}</p>
+                        </NavLink>
+                      </li>
+                    );
+                  return null;
+                })}
+              </ul>
+            </div>
           </div>
-        </div>
-      );
-    }
-    //* En caso de que el usuario sea user
+          );
+        }
+        //* En caso de que el usuario sea user
     if (this.state.role === "superadmin") {
       return (
         <div
-          id="sidebar"
-          className="sidebar"
-          data-color="black"
-          data-image={imagine}
-        >
-          <div className="sidebar-background" style={sidebarBackground} />
-          <div className="logo">
-            <a
-              href="https://www.creative-tim.com"
-              className="simple-text logo-mini"
-            >
-              <div className="logo-img">
-                <img src={logo} alt="logo_image" />
-              </div>
-            </a>
-            <a
-              // href="https://www.creative-tim.com"
-              className="simple-text logo-normal"
-            >
-              TestU
+            id="sidebar"
+            className="sidebar"
+            data-color="black"
+            data-image={imagine}
+          >
+            <div className="sidebar-background" style={sidebarBackground} />
+            <div className="logo">
+              <a
+                href="https://www.creative-tim.com"
+                className="simple-text logo-mini"
+              >
+                
+              </a>
+              <a
+                // href="https://www.creative-tim.com"
+                className="simple-text logo-normal"
+              >
+                
           </a>
-          </div>
-          <div className="sidebar-wrapper">
-            <ul className="nav">
-              {this.state.width <= 991 ? <HeaderLinks /> : null}
-              {dashboardSuperRoutes.map((prop, key) => {
-                if (!prop.redirect)
-                  return (
-                    <li
-                      className={
-                        prop.upgrade
-                          ? "active active-pro"
-                          : this.activeRoute(prop.path)
-                      }
-                      key={key}
-                    >
-                      <NavLink
-                        to={prop.path}
-                        className="nav-link"
-                        activeClassName="active"
+            </div>
+            <div className="sidebar-wrapper">
+              <ul className="nav">
+                {this.state.width <= 991 ? <HeaderLinks /> : null}
+                {dashboardSuperRoutes.map((prop, key) => {
+                  if (!prop.redirect)
+                    return (
+                      <li
+                        className={
+                          prop.upgrade
+                            ? "active active-pro"
+                            : this.activeRoute(prop.path)
+                        }
+                        key={key}
                       >
-                        <i className={prop.icon} />
-                        <p>{prop.name}</p>
-                      </NavLink>
-                    </li>
-                  );
-                return null;
-              })}
-            </ul>
+                        <NavLink
+                          to={prop.path}
+                          className="nav-link"
+                          activeClassName="active"
+                        >
+                          <i className={prop.icon} />
+                          <p>{prop.name}</p>
+                        </NavLink>
+                      </li>
+                    );
+                  return null;
+                })}
+              </ul>
+            </div>
           </div>
-        </div>
-      );
+          );
+        }
+      }
     }
-  }
-}
-
-export default Sidebar;
+    
+    export default Sidebar;
