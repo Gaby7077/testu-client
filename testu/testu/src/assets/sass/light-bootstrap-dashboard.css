@@ -264,10 +264,11 @@ input:focus {
       height: 60px; }
   .sidebar .nav {
     margin-top: 20px; }
-    .sidebar .nav li > a {
+.sidebar .nav li > a {
       color: #FFFFFF;
       margin: 5px 15px;
       opacity: .86;
+      width: 240px;
       border-radius: 4px; }
     .sidebar .nav li:hover > a,
     .sidebar .nav li.open > a,
