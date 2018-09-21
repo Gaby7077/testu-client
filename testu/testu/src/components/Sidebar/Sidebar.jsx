@@ -149,7 +149,7 @@ class Sidebar extends Component {
           </div>
           );
         }
-        //* En caso de que el usuario sea user
+        
     if (this.state.role === "superadmin") {
       return (
         <div
@@ -159,7 +159,7 @@ class Sidebar extends Component {
             data-image={imagine}
           >
             <div className="sidebar-background" style={sidebarBackground} />
-            <div className="logo">
+            {/*<div className="logo">
               <a
                 href="https://www.creative-tim.com"
                 className="simple-text logo-mini"
@@ -172,7 +172,7 @@ class Sidebar extends Component {
               >
                 
           </a>
-            </div>
+            </div>*/}
             <div className="sidebar-wrapper">
               <ul className="nav">
                 {this.state.width <= 991 ? <HeaderLinks /> : null}
