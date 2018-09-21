@@ -149,7 +149,7 @@ class Pregunta extends Component {
         this.setState({
             preguntaid:event.target.id,
             showRespuesta: true,
-            botonRespuesta: true,
+            botonRespuesta: false,
         });
     }
 
@@ -158,7 +158,7 @@ class Pregunta extends Component {
         const { name, value } = event.target;
         this.setState({
             [name]: value,
-            botonRespuesta: false,
+            //botonRespuesta: false,
 
         });
 
@@ -171,6 +171,10 @@ class Pregunta extends Component {
             preguntaId:this.state.preguntaid
         }).then(response=>{
             console.log(response)
+            this.setState({
+                valueRespuesta:false,
+            }
+            )
             this.obtenerPreguntas();
         })
     }
