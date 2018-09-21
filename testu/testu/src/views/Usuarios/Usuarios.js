@@ -24,7 +24,6 @@ class Usuarios extends Component {
 
     handleFormSubmit = event => {
         event.preventDefault();
-<<<<<<< HEAD
 
         this.setState({
 
@@ -33,9 +32,6 @@ class Usuarios extends Component {
             empresa: "",
           })
         UserAPI.postUsuario(
-=======
-        UserAPI.postSignup(
->>>>>>> 2f859e203e5b87d375018e6eed3700ff7b170a56
             {
                 email: this.state.username,
                 password: this.state.password,
