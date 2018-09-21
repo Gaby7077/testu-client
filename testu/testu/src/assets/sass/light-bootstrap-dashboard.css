@@ -269,7 +269,7 @@ input:focus {
       margin: 5px 15px;
       opacity: .86;
       border-radius: 4px; 
-    width:240px}
+    width:240px;}
     .sidebar .nav li:hover > a,
     .sidebar .nav li.open > a,
     .sidebar .nav li.open > a:focus,
