@@ -46,14 +46,14 @@ class Sidebar extends Component {
           data-image={imagine}
         >
           <div className="sidebar-background" style={sidebarBackground} />
-          <div className="logo">
+          {/*<div className="logo">
             <a
               href="https://www.creative-tim.com"
               className="simple-text logo-mini"
             >
-              {/*<div className="logo-img">
+              <div className="logo-img">
                 <img src={logo} alt="logo_image" / >
-                </div>*/}
+                </div>
             </a>
               <a
                 // href="https://www.creative-tim.com"
@@ -62,7 +62,7 @@ class Sidebar extends Component {
                
   
           </a>
-      </div>
+      </div>*/}
             <div className="sidebar-wrapper">
               <ul className="nav">
                 {this.state.width <= 991 ? <HeaderLinks /> : null}
