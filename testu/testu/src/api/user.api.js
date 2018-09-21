@@ -111,5 +111,9 @@ export default {
     //Obtener califacion
     getCalificaciones:function(data){
         return axios.get(process.env.REACT_APP_API_URL + "/api/examen",data)
+    },
+    //Agregar user
+    postUsuario:function(data){
+        return axios.post(process.env.REACT_APP_API_URL + "/api/usuario",data)
     }
   };

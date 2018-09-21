@@ -268,8 +268,8 @@ input:focus {
       color: #FFFFFF;
       margin: 5px 15px;
       opacity: .86;
-      border-radius: 4px; 
-    width:240px;}
+      border-radius: 4px;
+      width: 240px; }
     .sidebar .nav li:hover > a,
     .sidebar .nav li.open > a,
     .sidebar .nav li.open > a:focus,

@@ -28,7 +28,7 @@ class Usuarios extends Component {
             password: "",
             empresa: "",
           })
-        UserAPI.postSignup(
+        UserAPI.postUsuario(
             {
                 email: this.state.username,
                 password: this.state.password,
