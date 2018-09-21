@@ -11,7 +11,7 @@ class Background extends Component {
        
 
         return (
-            <div className="fondo particle">
+            <div className="fondo">
 
                 <div >
                     <Particles
@@ -21,7 +21,7 @@ class Background extends Component {
                                     value: 150,
                                     density: {
                                         enable: true,
-                                        value_area: 1200
+                                        value_area: 3000
                                     }
                                 }
                             }

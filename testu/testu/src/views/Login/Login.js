@@ -2,9 +2,8 @@ import React, { Component } from 'react';
 import "./Login.css";
 import UserAPI from "../../api/user.api";
 import logo from "../../assets/img/testu1.png";
-import Particles from "react-particles-js";
 import Background from "components/Background/Background.jsx"
-import { Grid, Row, Col, Table, Modal, ProgressBar } from "react-bootstrap";
+import Parallax from "react-springy-parallax";
 class Login extends Component {
     state = {
         username: "",
@@ -111,16 +110,39 @@ class Login extends Component {
 
     render() {
         const loggedIn = this.state.loggedIn
-
+        const styles = {
+            fontFamily: 'Menlo-Regular, Menlo, monospace',
+            fontSize: 14,
+            lineHeight: '10px',
+            color: 'white',
+            display: 'flex', alignItems: 'center', justifyContent: 'center'
+        }
+        const background = <Background/>
     
         return (
-            <div>
-               <Background/>
+            <Parallax ref="parallax" pages={2}>
 
-                <div className="row justify-content-center">
+                <Parallax.Layer offset={0} speed={1} style={{ backgroundColor: '' }} />
+                <Parallax.Layer offset={1} speed={1} style={{ backgroundColor: '#2E2E2E' }} />
+               
+               
+                <Parallax.Layer
+                    offset={0}
+                    speed={0.5}
+                    style={styles}
+                    onClick={() => this.refs.parallax.scrollTo(1)}>
+                <div>
                     <img src={logo} className="panel2"/>
                 </div>
-                <div className="row justify-content-center">
+               {/*} <p className="texto">La forma más rápida de evaluar y certificar a tu equipo</p> {*/}
+                </Parallax.Layer>
+       
+                <Parallax.Layer
+                    offset={1}
+                    speed={-0.1}
+                    style={styles}
+                    onClick={() => this.refs.parallax.scrollTo(1)}>
+                    <div>
                     <div className="panel">
                         <div className="col-md-1">
                         </div>
@@ -148,10 +170,6 @@ class Login extends Component {
                     </div>
                 </div>
 
-
-
-
-                
                 <div className="row">
                     {loggedIn ? (
                         <div>
@@ -166,15 +184,9 @@ class Login extends Component {
                         )}
                 </div>
 
-
-
-
-
-
-
-
-            </div>
-
+                </Parallax.Layer>
+                <Background/>
+            </Parallax>
 
         )
     }

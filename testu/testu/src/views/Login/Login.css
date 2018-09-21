@@ -1,10 +1,11 @@
 
-@import url('https://fonts.googleapis.com/css?family=Abril+Fatface%7CAllerta+Stencil%7CAmatic+SC:400,700%7CAnton%7CPaytone+One%7CRajdhani:700%7CRoboto%7CShadows+Into+Light');
+@import url('https://fonts.googleapis.com/css?family=Oswald');
 
 
 
 .fondo {
     background-image: url("../../assets/img/fondogris2.png");
+
 }
 
 .logo {
@@ -18,8 +19,8 @@
     color: purple;
 
 }
-
 .panel {
+    
    display: block;
     /*font-family: 'Source Sans Pro';*/
    /*font-size: 1.3em;*/
@@ -28,7 +29,11 @@
     width: 300px;
     height: 360px;
     background: #eee;
-    top: 30%;
+    top: 25%;
+    left: 0;
+    right: 0;
+    margin: 0 auto;
+    color: black;
    
    
    /* margin: -110px 0 100px -110px;*/
@@ -39,15 +44,21 @@
 }
 
 .panel2 {
-    display: block;
-     position: absolute;
+    display: inline;
+  /*  position: absolute;*/
      z-index: 15;
-     top: 3%;
-height: 8vw;
-width: auto;
+     top: 10%;
+    left: 0;
+    right: 0;
+    margin: 0 auto;
  }
  
-
+.texto{
+    font-family: 'Oswald', sans-serif;
+    font-size: 4em;
+    margin: 10%;
+    text-align: center;
+}
 
 
 .prueba{
