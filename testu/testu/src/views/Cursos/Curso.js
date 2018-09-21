@@ -276,9 +276,9 @@ class Curso extends Component {
                                                 <th>
                                                     # Preguntas
                                                 </th>
-                                                <th>
+                                                {/*<th>
                                                     Crear Examen
-                                                </th>
+                                                </th>*/}
                                                 <th>
                                                     Borrar Curso
                                                 </th>
@@ -310,9 +310,9 @@ class Curso extends Component {
                                                         <td>
                                                             {preguntas}
                                                         </td>
-                                                        <td>
+                                                        {/*<td>
                                                         <Button bsStyle="info" fill type="submit" cursoid={respuesta.id} numpreguntas={preguntas} onClick={(e)=>this.handleShowExamen(e)}>Configurar Examen</Button>
-                                                        </td>
+                                                        </td>*/}
                                                         <td>
                                                             <Button bsStyle="danger" id={respuesta.id} fill type="submit" onClick={(e) => this.borrarCurso(e)}>Borrar Curso</Button>
                                                         </td>
