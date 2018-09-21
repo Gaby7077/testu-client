@@ -1,6 +1,8 @@
 import React, { Component } from 'react';
 import "./Usuarios.css";
 import UserAPI from "../../api/user.api";
+import { Grid, Row, Col, FormGroup, FormControl, ControlLabel, Modal } from "react-bootstrap";
+import Button from "components/MaterialButton/MaterialButton.jsx";
 
 
 class Usuarios extends Component {
@@ -8,6 +10,7 @@ class Usuarios extends Component {
         username: "",
         password: "",
         empresa: localStorage.getItem("empresa"),
+        showPregunta: false,
     }
 
 
@@ -21,13 +24,6 @@ class Usuarios extends Component {
 
     handleFormSubmit = event => {
         event.preventDefault();
-
-        this.setState({
-
-            username: "",
-            password: "",
-            empresa: "",
-          })
         UserAPI.postSignup(
             {
                 email: this.state.username,
@@ -35,18 +31,32 @@ class Usuarios extends Component {
                 empresa: this.state.empresa
             })
             .then(response => {
+
+                this.setState({
+                    showPregunta: true,
+                })
                 console.log(response)
                 //window.location.replace("/login")
 
-               
             })
     }
+    handleClosePregunta = event => {
+        event.preventDefault();
+                this.setState({
+                    username: "",
+                    password: "",
+                    showPregunta: false,
+                })
+                
+    }
+
+
 
     logout = event => {
-    event.preventDefault();
-    localStorage.removeItem("token")
-    localStorage.removeItem("role")
-    window.location.replace("/")
+        event.preventDefault();
+        localStorage.removeItem("token")
+        localStorage.removeItem("role")
+        window.location.replace("/")
     }
 
 
@@ -66,15 +76,15 @@ class Usuarios extends Component {
                             <form className="login">
                                 <div className="form-group">
                                     <label htmlFor="exampleInputEmail1">Email address</label>
-                                    <input type="email" onChange={this.handleInputChange} name="username" className="form-control" id="email-input" placeholder="Email" />
+                                    <input type="email" onChange={this.handleInputChange} name="username" className="form-control" id="email-input" value={this.state.username} placeholder="Email" />
                                 </div>
-                                
+
                                 <div className="form-group">
                                     <label htmlFor="exampleInputPassword1">Password</label>
-                                    <input type="password" className="form-control" name="password" onChange={this.handleInputChange} id="password-input" placeholder="Password" />
+                                    <input type="password" className="form-control" name="password" onChange={this.handleInputChange} id="password-input" value={this.state.password} placeholder="Password" />
                                 </div>
                                 <button type="submit" onClick={this.handleFormSubmit} className="btn btn-default">Dar de Alta</button>
-                                
+
 
                             </form>
                             <br />
@@ -83,7 +93,19 @@ class Usuarios extends Component {
 
                     </div>
                 </div>
+
+                <Modal show={this.state.showPregunta} onHide={this.handleClosePregunta}>
+                <Modal.Header closeButton>
+                    <Modal.Title>Usuario Agregado</Modal.Title>
+                </Modal.Header>
+
+                <Modal.Footer>
+                    <Button onClick={this.handleClosePregunta}>Close</Button>
+                </Modal.Footer>
+            </Modal>
             </div>
+
+            
 
 
         )
