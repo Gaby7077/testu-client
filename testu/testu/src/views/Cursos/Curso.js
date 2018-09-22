@@ -258,7 +258,7 @@ class Curso extends Component {
                                 ctTableFullWidth
                                 ctTableResponsive
                                 content={
-                                    <Table striped hover>
+                                    <Table striped hover responsive>
                                         <thead>
                                             <tr>
                                                 <th>

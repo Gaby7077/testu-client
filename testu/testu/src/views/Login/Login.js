@@ -117,7 +117,7 @@ class Login extends Component {
             color: 'white',
             display: 'flex', alignItems: 'center', justifyContent: 'center'
         }
-        const background = <Background/>
+        //const background = <Background/>
     
         return (
             <Parallax ref="parallax" pages={2}>
@@ -132,7 +132,7 @@ class Login extends Component {
                     style={styles}
                     onClick={() => this.refs.parallax.scrollTo(1)}>
                 <div>
-                    <img src={logo} className="panel2"/>
+                    <img src={logo} className="panel2" alt="logo"/>
                 </div>
                {/*} <p className="texto">La forma más rápida de evaluar y certificar a tu equipo</p> {*/}
                 </Parallax.Layer>

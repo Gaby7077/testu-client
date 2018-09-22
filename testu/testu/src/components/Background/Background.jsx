@@ -1,5 +1,4 @@
 import React, { Component } from 'react';
-import logo from "../../assets/img/logotestu.png";
 import Particles from "react-particles-js";
 
 

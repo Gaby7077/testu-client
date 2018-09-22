@@ -2,7 +2,7 @@ import React, { Component } from 'react';
 import "./Signup.css";
 import UserAPI from "../../api/user.api";
 import Button from "components/MaterialButton/MaterialButton.jsx";
-import { Grid, Row, Col, FormGroup, FormControl, ControlLabel, Modal } from "react-bootstrap";
+import {  Modal } from "react-bootstrap";
 
 
 class Signup extends Component {
@@ -73,7 +73,7 @@ class Signup extends Component {
                             <form className="login">
                                 <div className="form-group">
                                     <label htmlFor="exampleInputEmail1">Email address</label>
-                                    <input type="email" onChange={this.handleInputChange} name="username" className="form-control" id="email-input"  value={this.state.username} placeholder="Email" />
+                                    <input type="email" autoFocus onChange={this.handleInputChange} name="username" className="form-control" id="email-input"  value={this.state.username} placeholder="Email" />
                                 </div>
                                 <div className="form-group">
                                     <label htmlFor="Empresa">Empresa</label>
