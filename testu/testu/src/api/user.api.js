@@ -109,8 +109,8 @@ export default {
         return axios.get(process.env.REACT_APP_API_URL + "/api/tomados/"+user+"/"+curso)
     },
     //Obtener califacion
-    getCalificaciones:function(data){
-        return axios.get(process.env.REACT_APP_API_URL + "/api/examen",data)
+    getCalificaciones:function(empresa){
+        return axios.get(process.env.REACT_APP_API_URL + "/api/examen/"+empresa)
     },
     //Agregar user
     postUsuario:function(data){

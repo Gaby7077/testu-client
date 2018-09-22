@@ -28,7 +28,7 @@ class Calificaciones extends Component {
 
     //*Funcion para obtener los datos nuevos y ponerlos en el render
     obtenerCalificaciones() {
-        UserAPI.getCalificaciones()
+        UserAPI.getCalificaciones(this.state.empresa)
         .then(response=>{
             //console.log(response)
             this.setState({
