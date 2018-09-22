@@ -7,7 +7,7 @@ import imagine from "assets/img/sidebar-4.jpg";
 
 //agregar y cambiar logo de TestU//
 
-import logo from "assets/img/reactlogo.png";
+
 
 import dashboardRoutes from "routes/dashboard.jsx";
 import dashboardAdminRoutes from "routes/dashboardadmin.js";

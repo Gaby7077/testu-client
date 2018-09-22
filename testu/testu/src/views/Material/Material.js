@@ -65,7 +65,7 @@ borrarDocumento(e){
                                 ctTableFullWidth
                                 ctTableResponsive
                                 content={
-                                   <Table>
+                                   <Table responsive>
                                        <thead>
                                             <tr>
                                                 <th>
