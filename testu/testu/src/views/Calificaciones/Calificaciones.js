@@ -2,6 +2,8 @@ import React, { Component } from 'react';
 import { Grid, Row, Col, Table } from "react-bootstrap";
 import Card from "components/Card/Card.jsx";
 import UserAPI from "../../api/user.api";
+import jsPDF from "jspdf";
+import Button from "components/MaterialButton/MaterialButton.jsx";
 
 
 
@@ -15,7 +17,10 @@ class Calificaciones extends Component {
 
         this.state = {
            empresa: localStorage.getItem("empresa"),
-           respuesta:[]
+           respuesta:[],
+           alumno:"Gustavo Canales",
+           curso:"Curso 1",
+           calificacion:"90",
             
 
         };
@@ -35,6 +40,19 @@ class Calificaciones extends Component {
                 respuesta:response.data
             })
         })
+    }
+
+    //Funcion para crear el PDF
+    crearPDF(e){
+        e.preventDefault();
+        let alumno=e.target.getAttribute("alumno")
+        let curso=e.target.getAttribute("curso")
+        let calificacion=e.target.getAttribute("calificacion")
+        var doc=new jsPDF
+        doc.text(20,20,"Resultado de Examen")
+        doc.text(20,30,`Este certificado reconoce que el alumno ${alumno}.`)
+        doc.text(20,40,`Obtuvo una calificación de ${calificacion} en el curso de ${curso}`)
+        doc.save("certificado.pdf")
     }
 
     
@@ -69,6 +87,9 @@ class Calificaciones extends Component {
                                                 <th>
                                                     Calificacion
                                                 </th>
+                                                <th>
+                                                    Obtener Certificado
+                                                </th>
 
                                             </tr>
                                         </thead>
@@ -102,6 +123,9 @@ class Calificaciones extends Component {
                                                         <td>
                                                             {porcentaje}
 
+                                                        </td>
+                                                        <td>
+                                                            <Button bsStyle="info" alumno={res.User.email} curso={res.Curso.curso} calificacion={porcentaje} fill type="submit" onClick={(e)=>this.crearPDF(e)}>Obtener Certificado</Button>
                                                         </td>
 
                                                     </tr>
